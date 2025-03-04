@@ -1,0 +1,41 @@
+/* Pagina de Inicio */
+
+/* Main */
+
+/* Botones de gestión de usuarios, configuración y gestión de notificaciones */
+.main-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.main-buttons button {
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  text-align: center; 
+  padding: 10px 20px; 
+  font-size: 16px; 
+}
+
+.button-gestionusuarios, .button-configuracion, .button-monitoreoreportes {
+  background-color: #28a728;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-icon-gestionusuarios, .button-icon-configuracion, .button-icon-monitoreoreportes {
+  width: 30px;
+  height: 30px;
+}
+
+
+

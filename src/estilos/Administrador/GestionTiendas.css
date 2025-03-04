@@ -1,0 +1,39 @@
+/* Pagina de Gestion de Tiendas */
+
+/* Main */
+
+/* estilos Botones seguimiento de pedidos y actualizar productos*/
+.botonAccion {
+  background-color: #28a745;  
+  color: white;               
+  font-size: 14px;            
+  padding: 8px 16px;          
+  border: none;               
+  border-radius: 5px;         
+  cursor: pointer;           
+  transition: background-color 0.3s ease;  
+}
+
+.botonAccion:hover {
+  background-color: #218838;  
+}
+
+/* estilo boton de consulta actualizar estado de pedido y actualizar producto dentro de las tablas  */
+
+.botonConsulta {
+  background-color: white;  
+  color: black;               
+  font-size: 16px;            
+  padding: 10px 20px;         
+  border: none;               
+  border-radius: 5px;         
+  cursor: pointer;           
+  transition: background-color 0.3s ease;  
+}
+
+.botonConsulta:hover {
+  background-color: #218838;  
+}
+
+
+

@@ -1,0 +1,137 @@
+/* Pagina de Inicio Comprador*/
+
+/* Main */
+
+/* Botones de gestión de pedidos, notificaciones, calificación y evaluación */
+.main-buttons {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%; 
+}
+
+.main-buttons button {
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  text-align: center; 
+  padding: 10px 20px; 
+  font-size: 1rem; 
+  flex-shrink: 0; 
+}
+
+.button-gestionPedidos, .button-notificaciones, .button-calificacionEvaluacion {
+  background-color: #28a728;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-gestionPedidos, .button-notificaciones, .button-calificacionEvaluacion {
+  width: 150px;
+  height: 40px;
+}
+
+
+/* ========================== MEDIA QUERIES ========================== */
+
+/* Para dispositivos móviles (menos de 600px) */
+@media (max-width: 600px) {
+  .home-header-left h1 {
+    font-size: 1.5rem; 
+  }
+
+  .header-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-inicio, .button-regresar, .button-cerrarsesion {
+    padding: 8px 16px;
+  }
+
+  .main-buttons {
+    flex-direction: column; 
+    gap: 15px;
+  }
+
+  .button-gestionPedidos, .button-notificaciones, .button-calificacionEvaluacion {
+    width: 100%; 
+    font-size: 0.875rem; 
+    padding: 8px 16px;
+  }
+
+  .social-links img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Para tablets (600px a 768px) */
+@media (max-width: 768px) {
+  .home-header-left h1 {
+    font-size: 1.75rem; 
+  }
+
+  .header-buttons {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .button-inicio, .button-regresar, .button-cerrarsesion {
+    padding: 10px 18px;
+  }
+
+  .main-buttons {
+    flex-direction: row; 
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .button-gestionPedidos, .button-notificaciones, .button-calificacionEvaluacion {
+    width: 140px;
+    font-size: 1rem; 
+    padding: 10px 18px;
+  }
+
+  .social-links img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Para pantallas grandes (mayores a 768px) */
+@media (min-width: 769px) {
+  .home-header-left h1 {
+    font-size: 2rem; 
+  }
+
+  .header-buttons {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .main-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .button-gestionPedidos, .button-notificaciones, .button-calificacionEvaluacion {
+    width: 150px;
+    font-size: 1rem; 
+    padding: 10px 20px;
+  }
+
+  .social-links img {
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -1,0 +1,95 @@
+/* Pagina de Estado Usuarios */
+
+/* Main */
+
+/* Estilos para la tabla */
+.table-container {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow-x: auto; 
+}
+
+/* Estilos generales de la tabla */
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Estilos para las celdas de la tabla */
+.usuarios-table th,
+.usuarios-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Encabezado de la tabla */
+.usuarios-table th {
+  background-color: #f1f1f1;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+/* Filas alternadas con fondo gris claro */
+.usuarios-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Efecto hover sobre filas */
+.usuarios-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilos para las celdas de acción */
+.usuarios-table td .action-btn {
+  padding: 8px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.usuarios-table td .action-btn:hover {
+  background-color: #45a049;
+}
+
+/* Estilos para los campos de texto y select */
+.usuarios-table input[type="text"],
+.usuarios-table select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.usuarios-table input[type="text"]:focus,
+.usuarios-table select:focus {
+  background-color: #e8f1f7;
+  border-color: #4caf50;
+}
+
+/* Bordes redondeados para la tabla */
+.usuarios-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Espaciado entre la tabla y el contenido superior */
+h2 {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  margin-bottom: 15px;
+}
+

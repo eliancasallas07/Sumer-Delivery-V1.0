@@ -1,0 +1,61 @@
+/* Pagina de Configuracion de Notificaciones  */
+
+/* Main */
+
+/* Estilo de Tabla Configuracion de Notificaciones*/
+
+.configuracion-notificaciones {
+  padding: 20px;
+}
+
+.usuario-selector {
+  margin-bottom: 20px;
+  cursor: pointer; 
+}
+
+.usuario-selector select {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tabla-notificaciones {
+  margin-top: 30px;
+  border-collapse: collapse;
+  width: 40%; /* ancho de la tabla */
+  margin: 0 auto; 
+  
+}
+
+.tabla-notificaciones table {
+  width: 100%;
+  border: 1px solid #ddd;
+  table-layout: fixed; 
+ 
+}
+
+.tabla-notificaciones th,
+.tabla-notificaciones td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+  word-wrap: break-word; 
+
+}
+
+.tabla-notificaciones th {
+  background-color: #28a728; 
+}
+
+.tabla-notificaciones td {
+  max-width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.banner-preview {
+  width: 80px; 
+  height: auto;
+}
+
+

@@ -1,0 +1,139 @@
+/* Estilo del título h2 */
+h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  /* Estilo de la tabla de formulario */
+  .form-table {
+    width: 100%;
+    margin-top: 2rem;
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+  
+  /* Estilo de cada fila del formulario */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Estilo para los títulos dentro de cada fila */
+  .form-title {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+    background-color: #f0f0f0; /* Fondo gris para los títulos */
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center; /* Centrar el texto en los títulos */
+  }
+  
+  /* Estilo para los campos de datos dentro del formulario */
+  .form-input {
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center; /* Centrar los datos en cada celda */
+  }
+  
+  .form-input input,
+  .form-input select,
+  .form-input textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-input input:focus,
+  .form-input select:focus,
+  .form-input textarea:focus {
+    border-color: #4caf50;
+    outline: none;
+  }
+  
+  /* Estilo para el botón de enviar */
+  .submit-btn-Confirmar {
+    width: 100%;
+    padding: 1rem;
+    background-color: #4caf50  ;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+
+  /* Estilo al pasar el mouse por encima */
+  .submit-btn:hover {
+    background-color: #45a049; /* Sombra más oscura al pasar el mouse */
+  }
+  
+  /* ========================== MEDIA QUERIES ========================== */
+  
+  /* Para dispositivos móviles (menos de 600px) */
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr; /* En móviles, todo en una sola columna */
+    }
+  
+    .form-title,
+    .form-input {
+      font-size: 0.9rem;
+    }
+  
+    .submit-btn {
+      font-size: 1rem;
+      padding: 0.8rem;
+    }
+  }
+  
+  /* Para tablets (600px a 768px) */
+  @media (max-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr; /* En tablets, todo en una sola columna */
+    }
+  
+    .form-title,
+    .form-input {
+      font-size: 1rem;
+    }
+  
+    .submit-btn {
+      font-size: 1.1rem;
+      padding: 0.9rem;
+    }
+  }
+  
+  /* Para pantallas grandes (mayores a 768px) */
+  @media (min-width: 769px) {
+    .form-row {
+      grid-template-columns: 1fr 2fr; /* Títulos a la izquierda, datos a la derecha */
+    }
+  
+    .form-title,
+    .form-input {
+      font-size: 1rem;
+    }
+  
+    .submit-btn {
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+  }

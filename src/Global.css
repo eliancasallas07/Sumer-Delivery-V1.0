@@ -1,0 +1,218 @@
+/* Estilo Global Para el Header, Footer y algo sencillo estandar para el Main */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+
+
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px; /* Tamaño base de fuente (1rem = 16px por defecto) */
+  display: flex;
+  flex-direction: column;
+  
+}
+
+h1,
+h2,
+h3,
+p,
+.button-inicio,
+.button-regresar,
+.button-cerrarsesion {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+}
+
+/* Header */
+.home-header {
+  background-color: #000000;
+  color: #fff;
+  padding: 1.25rem; /* 20px convertido a rem */
+  display: flex;
+  flex-direction: column; /* Organiza los elementos de forma vertical */
+  justify-content: flex-start; /* Alinea los elementos desde la parte superior */
+  align-items: center; /* Centra los elementos horizontalmente */
+  width: 100%;
+  box-sizing: border-box;
+  height: 45rem; /* Altura fija para el header */
+  gap: 2rem; /* Espacio entre los diferentes bloques de contenido (botones y switch) */
+}
+
+/* Logo Sumer Delivery */
+.home-header-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 25rem; /* 400px convertido a rem */
+  margin-top: 1.25rem; /* 20px convertido a rem */
+}
+
+.home-header-logo .header-logo {
+  max-width: 9.375rem; /* 150px convertido a rem */
+  height: auto;
+}
+
+/* Título de Bienvenida */
+.home-header-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1.25rem; /* 20px convertido a rem */
+}
+
+.home-header-left h1 {
+  font-size: 2rem; /* 32px convertido a rem */
+  color: #fff;
+  text-align: center;
+}
+
+/* Contenedor de los botones */
+.header-buttons {
+  width: 100%;
+  text-align: center;
+  margin-top: 1.25rem;
+  box-sizing: border-box;
+    
+}
+
+/* Estilo común para todos los botones */
+.button-inicio,
+.button-regresar,
+.button-cerrarsesion {
+  display: block; /* Hace que los botones se apilen de arriba a abajo */
+  width: 12.5rem; /* Ancho fijo para los botones */
+  margin: 0 auto 1rem; /* Margen inferior para separación entre botones */
+  background-color: #28a728;
+  color: #fff;
+  padding: 0.625rem 1.25rem; /* 10px 20px convertido a rem */
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem; /* Espacio entre el icono y el texto */
+  cursor: pointer;
+  border-radius: 0.3125rem; /* 5px convertido a rem */
+  box-sizing: border-box;
+}
+
+/* Iconos dentro de los botones */
+.button-icon-inicio,
+.button-icon-regresar,
+.button-icon-cerrarsesion {
+  width: 1.875rem; /* 30px de ancho */
+  height: 1.875rem; /* 30px de alto */
+}
+
+/* Estilo del switch */
+.connection-status {
+  display: flex;
+  flex-direction: column; /* Organiza el switch y el texto de forma vertical */
+  align-items: center;
+  gap: 1rem; /* Espacio entre el switch y el texto */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.switch-container {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.switch {
+  width: 3.75rem; /* 60px de ancho */
+  height: 1.875rem; /* 30px de alto */
+  background-color: #ccc;
+  border-radius: 50px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.switch.active {
+  background-color: #4caf50; /* Cambio de color cuando está activo */
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 0.1875rem; /* 3px de espacio desde arriba */
+  left: 0.1875rem; /* 3px de espacio desde la izquierda */
+  width: 1.5rem; /* 24px de ancho */
+  height: 1.5rem; /* 24px de alto */
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.switch.active::before {
+  transform: translateX(1.875rem); /* Mueve el switch cuando está activo */
+}
+
+.status-text {
+  font-size: 1rem; /* Tamaño de texto */
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.status-text.connected {
+  color: #4caf50; /* Verde cuando está conectado */
+}
+
+.status-text.disconnected {
+  color: #ff9800; /* Naranja cuando está desconectado */
+}
+
+/* Main */
+.main {
+  background: linear-gradient(90deg, #b089cc 0%, #f76c1b 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1.25rem;
+}
+
+/* Footer */
+.footer {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  min-height: 25rem; /* 400px convertido a rem */
+}
+
+/* Contenedor del texto dentro del Footer */
+.TextoFooter {
+  padding-bottom: 1rem; /* Añade espacio debajo del texto */
+}
+
+/* Estilo para los enlaces sociales */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Espacio entre los iconos */
+}
+
+/* Estilo para cada ícono */
+.social-links img {
+  width: 2rem; /* Ancho de los iconos */
+  height: 2rem; /* Alto de los iconos */
+  transition: transform 0.3s ease;
+}
+
+/* Efecto al pasar el mouse sobre los iconos */
+.social-links img:hover {
+  transform: scale(1.1); /* Aumenta el tamaño del icono ligeramente */
+}

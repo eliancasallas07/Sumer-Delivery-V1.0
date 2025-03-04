@@ -1,0 +1,109 @@
+/* Pagina de Gestion de Quejas y Sugerencias*/
+
+/* Main */
+
+/* Estilos para el formulario de consulta */
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 60%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  .form-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .checkbox-container {
+    margin-bottom: 20px;
+  }
+  
+  .checkbox-container .checkbox-label {
+    margin-right: 20px;
+  }
+  
+  .botonConsulta {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .botonConsulta:hover {
+    background-color: #4CAF50;
+  }
+  
+  /* Secciones organizadas en 3 columnas */
+  .section-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .section {
+    background-color: #fff;
+    padding: 20px;
+    width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section h3 {
+    margin-bottom: 15px;
+  }
+  
+  .section button {
+    background-color: #28a728;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .section button:hover {
+    background-color: #28a728;
+  }
+  
+  /* Estilos para tablas */
+  table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #28a728;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f4f4f9;
+  }
+  
+
+
