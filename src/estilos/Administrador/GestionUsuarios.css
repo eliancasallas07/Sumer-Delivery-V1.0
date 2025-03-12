@@ -90,18 +90,8 @@
   background-color: #ffffff; 
 }
 
-/* aplicar terminos y condiones txt */
-.aceptarcambios-txt {
-  display: block; /* Asegura que todo esté en bloque */
-  margin-bottom: 15px; /* Ajusta la separación entre el texto y los botones */
-}
-
-.aceptarcambios-txt input {
-  margin-right: 10px; /* Separación entre el checkbox y el texto */
-}
-
 /* botones de aplicar cambios y cancelar */
-.apply-btn, .cancel-btn {
+.apply-btn, .cancel-btn{
   background-color: #28a728;
   color: #fff;
   padding: 10px 20px;
@@ -111,6 +101,7 @@
   gap: 10px;
   cursor: pointer;
   border-radius: 5px;
-  margin-bottom: 10px; /* Mantén la separación entre los botones */
+  margin-bottom: 10px;
 }
+
 

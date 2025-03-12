@@ -1,13 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Usar 'react-dom/client' en lugar de 'react-dom'
-import './Global.css'; // Si tienes este archivo de estilos
-import App from './App'; // Tu componente principal
-import { BrowserRouter } from 'react-router-dom'; // Asegúrate de envolver la aplicación con BrowserRouter
+import ReactDOM from 'react-dom/client'; 
+import './Global.css'; 
+import App from './App';
+import { BrowserRouter } from 'react-router-dom'; 
+import { Auth0Provider } from '@auth0/auth0-react';  // Importamos Auth0Provider
+import 'leaflet/dist/leaflet.css';
+
 
 // Crear el root para React 18 y renderizar la aplicación
 const root = ReactDOM.createRoot(document.getElementById('root')); // Crear un 'root'
+
+// Configura tu dominio y client ID de Auth0 (cópialos desde el Dashboard de Auth0)
+const domain = "sumerdelivery2025.us.auth0.com";  
+const clientId = "leQENvmSAFYmSUCxsrJAuJ4KnMLPCZlE";        
+
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <Auth0Provider
+    domain={domain}
+    clientId={clientId}
+    authorizationParams={{ redirect_uri: window.location.origin }}
+  >
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Auth0Provider>
 );

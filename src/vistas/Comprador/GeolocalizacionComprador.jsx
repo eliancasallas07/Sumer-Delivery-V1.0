@@ -1,11 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../estilos/Comprador/GeolocalizacionComprador.css";
+
+// Importación de react-leaflet y estilos de Leaflet
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const GeolocalizacionComprador = () => {
   const [sliderValue, setSliderValue] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
+  const [userPosition, setUserPosition] = useState([51.505, -0.09]); // Posición por defecto
   const navigate = useNavigate();
+
+  // Obtener la ubicación del usuario en tiempo real
+  useEffect(() => {
+    if (navigator.geolocation) {
+      // Usar watchPosition para obtener la ubicación en tiempo real
+      const geoWatcher = navigator.geolocation.watchPosition(
+        (position) => {
+          // Actualizar la posición del usuario en tiempo real
+          setUserPosition([position.coords.latitude, position.coords.longitude]);
+        },
+        (error) => {
+          console.error("Error al obtener la geolocalización.", error);
+        },
+        {
+          enableHighAccuracy: true, // Alta precisión
+          timeout: 5000,             // Tiempo máximo de espera
+          maximumAge: 0             // No usar posiciones anteriores
+        }
+      );
+
+      // Limpiar el watcher cuando el componente se desmonte
+      return () => navigator.geolocation.clearWatch(geoWatcher);
+    } else {
+      console.log("La geolocalización no está soportada por este navegador.");
+    }
+  }, []);
 
   const handleSliderChange = (e) => {
     setSliderValue(e.target.value);
@@ -18,22 +49,20 @@ const GeolocalizacionComprador = () => {
   const handleCall = (type) => {
     let phoneNumber = "";
 
-    // Asigna el número de teléfono según el tipo
     switch (type) {
       case "Repartidor":
-        phoneNumber = "+1234567890"; // Número del repartidor
+        phoneNumber = "+1234567890";
         break;
       case "Restaurante":
-        phoneNumber = "+0987654321"; // Número del restaurante
+        phoneNumber = "+0987654321";
         break;
       case "Soporte":
-        phoneNumber = "+1112223333"; // Número de soporte
+        phoneNumber = "+1112223333";
         break;
       default:
-        phoneNumber = "+0000000000"; // Número por defecto
+        phoneNumber = "+0000000000";
     }
 
-    // Redirige a la llamada
     window.location.href = `tel:${phoneNumber}`;
   };
 
@@ -149,12 +178,22 @@ const GeolocalizacionComprador = () => {
           </div>
         </div>
 
-        <div className="center-panel">
-          <img
-            src={require("../../activos/alternativa.png")}
-            alt="Simulación de Mapa"
-            className="mapa-estatico"
-          />
+        {/* Integración del mapa */}
+        <div className="map-container">
+          <MapContainer
+            center={userPosition} // Usar la ubicación del usuario
+            zoom={13}
+            style={{ height: "100%", width: "100%" }}
+          >
+            {/* Mapa de OpenStreetMap */}
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {/* Marcador de ubicación */}
+            <Marker position={userPosition}>
+              <Popup>
+                <span>Ubicación actual</span>
+              </Popup>
+            </Marker>
+          </MapContainer>
         </div>
 
         <div className="right-panel">
@@ -195,12 +234,70 @@ const GeolocalizacionComprador = () => {
         </div>
       </main>
 
+      {/* Footer */}
       <footer className="footer">
         <p>© 2025 Sumer Delivery - Todos los derechos reservados</p>
-        <div className="social-links">{/* Links de redes sociales */}</div>
+        <div className="social-links">
+          <a
+            href="https://www.instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={require("../../activos/instagram.png")}
+              alt="Logo Instagram"
+              className="instagram"
+            />
+          </a>
+          <a
+            href="https://www.facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={require("../../activos/facebook.png")}
+              alt="Logo Facebook"
+              className="facebook"
+            />
+          </a>
+          <a
+            href="mailto:tu_correo@ejemplo.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={require("../../activos/correoelectronico.png")}
+              alt="Logo Correo Electrónico"
+              className="correoelectronico"
+            />
+          </a>
+          <a
+            href="https://www.tiktok.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={require("../../activos/tiktok.png")}
+              alt="Logo TikTok"
+              className="tiktok"
+            />
+          </a>
+          <a
+            href="https://wa.me/1234567890"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={require("../../activos/whatsapp.png")}
+              alt="Logo WhatsApp"
+              className="whatsapp"
+            />
+          </a>
+        </div>
       </footer>
     </div>
   );
 };
 
 export default GeolocalizacionComprador;
+

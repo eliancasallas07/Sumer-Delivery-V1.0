@@ -31,29 +31,28 @@ p,
 .home-header {
   background-color: #000000;
   color: #fff;
-  padding: 1.25rem; /* 20px convertido a rem */
+  padding: 1.25rem; 
   display: flex;
-  flex-direction: column; /* Organiza los elementos de forma vertical */
-  justify-content: flex-start; /* Alinea los elementos desde la parte superior */
-  align-items: center; /* Centra los elementos horizontalmente */
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: center; 
   width: 100%;
   box-sizing: border-box;
-  height: 45rem; /* Altura fija para el header */
-  gap: 2rem; /* Espacio entre los diferentes bloques de contenido (botones y switch) */
+  height: 45rem; 
+  gap: 2rem; 
 }
-
 /* Logo Sumer Delivery */
 .home-header-logo {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 25rem; /* 400px convertido a rem */
-  margin-top: 1.25rem; /* 20px convertido a rem */
+  max-width: 25rem; 
+  margin-top: 1.25rem; 
 }
 
 .home-header-logo .header-logo {
-  max-width: 9.375rem; /* 150px convertido a rem */
+  max-width: 9.375rem; 
   height: auto;
 }
 
@@ -63,11 +62,11 @@ p,
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 1.25rem; /* 20px convertido a rem */
+  margin-top: 1.25rem; 
 }
 
 .home-header-left h1 {
-  font-size: 2rem; /* 32px convertido a rem */
+  font-size: 2rem;
   color: #fff;
   text-align: center;
 }
@@ -85,18 +84,18 @@ p,
 .button-inicio,
 .button-regresar,
 .button-cerrarsesion {
-  display: block; /* Hace que los botones se apilen de arriba a abajo */
-  width: 12.5rem; /* Ancho fijo para los botones */
-  margin: 0 auto 1rem; /* Margen inferior para separación entre botones */
+  display: block; 
+  width: 12.5rem; 
+  margin: 0 auto 1rem; 
   background-color: #28a728;
   color: #fff;
-  padding: 0.625rem 1.25rem; /* 10px 20px convertido a rem */
+  padding: 0.625rem 1.25rem; 
   border: none;
   display: flex;
   align-items: center;
-  gap: 0.625rem; /* Espacio entre el icono y el texto */
+  gap: 0.625rem; 
   cursor: pointer;
-  border-radius: 0.3125rem; /* 5px convertido a rem */
+  border-radius: 0.3125rem; 
   box-sizing: border-box;
 }
 
@@ -104,16 +103,15 @@ p,
 .button-icon-inicio,
 .button-icon-regresar,
 .button-icon-cerrarsesion {
-  width: 1.875rem; /* 30px de ancho */
-  height: 1.875rem; /* 30px de alto */
+  width: 1.875rem; 
+  height: 1.875rem; 
 }
 
 /* Estilo del switch */
 .connection-status {
   display: flex;
-  flex-direction: column; /* Organiza el switch y el texto de forma vertical */
-  align-items: center;
-  gap: 1rem; /* Espacio entre el switch y el texto */
+  flex-direction: column; 
+  gap: 1rem; 
   width: 100%;
   box-sizing: border-box;
 }
@@ -125,8 +123,8 @@ p,
 }
 
 .switch {
-  width: 3.75rem; /* 60px de ancho */
-  height: 1.875rem; /* 30px de alto */
+  width: 3.75rem; 
+  height: 1.875rem; 
   background-color: #ccc;
   border-radius: 50px;
   position: relative;
@@ -134,37 +132,37 @@ p,
 }
 
 .switch.active {
-  background-color: #4caf50; /* Cambio de color cuando está activo */
+  background-color: #4caf50; 
 }
 
 .switch::before {
   content: "";
   position: absolute;
-  top: 0.1875rem; /* 3px de espacio desde arriba */
-  left: 0.1875rem; /* 3px de espacio desde la izquierda */
-  width: 1.5rem; /* 24px de ancho */
-  height: 1.5rem; /* 24px de alto */
+  top: 0.1875rem; 
+  left: 0.1875rem; 
+  width: 1.5rem; 
+  height: 1.5rem; 
   background-color: white;
   border-radius: 50%;
   transition: transform 0.3s;
 }
 
 .switch.active::before {
-  transform: translateX(1.875rem); /* Mueve el switch cuando está activo */
+  transform: translateX(1.875rem); 
 }
 
 .status-text {
-  font-size: 1rem; /* Tamaño de texto */
+  font-size: 1rem; 
   color: #ccc;
   transition: color 0.3s ease;
 }
 
 .status-text.connected {
-  color: #4caf50; /* Verde cuando está conectado */
+  color: #4caf50; 
 }
 
 .status-text.disconnected {
-  color: #ff9800; /* Naranja cuando está desconectado */
+  color: #ff9800; 
 }
 
 /* Main */
@@ -190,29 +188,29 @@ p,
   width: 100%;
   padding: 1.25rem;
   box-sizing: border-box;
-  min-height: 25rem; /* 400px convertido a rem */
+  min-height: 25rem; 
 }
 
 /* Contenedor del texto dentro del Footer */
 .TextoFooter {
-  padding-bottom: 1rem; /* Añade espacio debajo del texto */
+  padding-bottom: 1rem; 
 }
 
 /* Estilo para los enlaces sociales */
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 1rem; /* Espacio entre los iconos */
+  gap: 1rem; 
 }
 
 /* Estilo para cada ícono */
 .social-links img {
-  width: 2rem; /* Ancho de los iconos */
-  height: 2rem; /* Alto de los iconos */
+  width: 2rem; 
+  height: 2rem; 
   transition: transform 0.3s ease;
 }
 
 /* Efecto al pasar el mouse sobre los iconos */
 .social-links img:hover {
-  transform: scale(1.1); /* Aumenta el tamaño del icono ligeramente */
+  transform: scale(1.1); 
 }

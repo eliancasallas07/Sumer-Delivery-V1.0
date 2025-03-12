@@ -106,7 +106,36 @@ button.submit-btn:hover {
 .forgot-password a:hover {
   text-decoration: underline;
 }
+/*Estilo de boton y logo de google de autenticacion*/
 
+.google-logo {
+  width: 30px; 
+  margin-right: 10px; 
+}
+
+.auth0-btn {
+  background-color: #b089cc; 
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  margin-top: 20px;
+}
+
+.auth0-btn img {
+  width: 20px; /* Ajustar el tamaño del logo de Google */
+  margin-right: 10px; /* Espaciado entre el logo y el texto */
+  
+}
+
+.auth0-btn:hover {
+  background-color: #9b7ab1; /* Cambio de color cuando se pasa el mouse */
+  
+}
 /* Footer */
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom'; // Uso Routes y Route sin otro <Router>
 import './Global.css';  // Importando los estilos globales
 
+
 // Rutas de Administrador
 import Login from './vistas/Administrador/Login.jsx';
 import Inicio from './vistas/Administrador/Inicio.jsx';

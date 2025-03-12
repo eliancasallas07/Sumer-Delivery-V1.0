@@ -1,14 +1,15 @@
-// Pantalla de login
-
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Aquí agregamos useNavigate
-import "../../estilos/Administrador/Login.css"; // Los estilos
+import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";  // Importar hook de Auth0
+import "../../estilos/Administrador/Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("administrador"); // Estado para manejar el rol
-  const navigate = useNavigate(); // Hook para la navegación
+  const [role, setRole] = useState("administrador");
+  const navigate = useNavigate();
+
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0(); // Funciones de Auth0
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -17,27 +18,36 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar el usuario, contraseña y rol
-    if (
-      username === "elian casallas" &&
-      password === "123456" &&
-      role === "administrador"
-    ) {
-      console.log("Login exitoso");
-      // Redirigir a la página de "Inicio" para el Administrador
-      navigate("/inicio");
-    } else if (
-      username === "comprador1" &&
-      password === "456789" &&
-      role === "comprador"
-    ) {
-      console.log("Login exitoso");
-      // Redirigir a la página de "Inicio" para el Comprador
-      navigate("/inicioComprador");
-    } else {
-      console.log("Datos incorrectos");
-      alert("Usuario, contraseña o rol incorrectos.");
+    // Lógica de autenticación local (solo si no estás autenticado con Auth0)
+    if (!isAuthenticated) {
+      if (
+        username === "elian casallas" &&
+        password === "123456" &&
+        role === "administrador"
+      ) {
+        console.log("Login exitoso");
+        navigate("/inicio");
+      } else if (
+        username === "comprador1" &&
+        password === "456789" &&
+        role === "comprador"
+      ) {
+        console.log("Login exitoso");
+        navigate("/inicioComprador");
+      } else {
+        console.log("Datos incorrectos");
+        alert("Usuario, contraseña o rol incorrectos.");
+      }
     }
+  };
+
+  // Redirigir si ya está autenticado con Auth0
+  if (isAuthenticated) {
+    navigate("/inicio");
+  }
+
+  const handleLoginWithAuth0 = () => {
+    loginWithRedirect(); // Redirige al login de Auth0
   };
 
   return (
@@ -59,48 +69,71 @@ const Login = () => {
       {/* Main */}
       <main className="main">
         <h2 className="form-title">Inicio de sesión</h2>
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label htmlFor="username">Nombre de Usuario</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={handleUsernameChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="role">Rol</label>
-            <select id="role" value={role} onChange={handleRoleChange}>
-              <option value="administrador">Administrador</option>
-              <option value="comprador">Comprador</option>
-              <option value="vendedor">Vendedor</option>
-              <option value="repartidor">Repartidor</option>
-            </select>
-          </div>
-          <div className="forgot-password">
-            <Link to="https://wa.me/1234567890">¿Olvidaste tu contraseña?</Link>
-          </div>
 
-          <button type="submit" className="submit-btn">
-            Iniciar sesión
+        {!isAuthenticated ? (
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="form-group">
+              <label htmlFor="username">Nombre de Usuario</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={handleUsernameChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="role">Rol</label>
+              <select id="role" value={role} onChange={handleRoleChange}>
+                <option value="administrador">Administrador</option>
+                <option value="comprador">Comprador</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="repartidor">Repartidor</option>
+              </select>
+            </div>
+            <div className="forgot-password">
+              <a href="https://wa.me/1234567890">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" className="submit-btn">
+              Iniciar sesión
+            </button>
+
+            <div className="register-text">
+              <a href="https://wa.me/1234567890">¿No tienes cuenta?</a>
+            </div>
+          </form>
+        ) : (
+          <div className="welcome-message">
+            <h3>Bienvenido, {user.name}!</h3>
+            <button onClick={() => logout({ returnTo: window.location.origin })}>
+              Cerrar sesión
+            </button>
+          </div>
+        )}
+
+        {/* Botón para iniciar sesión con Google */}
+        <div className="auth0-login">
+          <button onClick={handleLoginWithAuth0} className="auth0-btn">
+            {/* Usando el logo de Google desde el archivo importado */}
+            <img
+              src={require("../../activos/logo-google.png")}
+              alt="Google"
+              className="google-logo"
+            />
+            Iniciar sesión con Google
           </button>
-
-          <div className="register-text">
-            <Link to="https://wa.me/1234567890">¿No tienes cuenta?</Link>
-          </div>
-        </form>
+        </div>
       </main>
 
       {/* Footer */}
@@ -169,3 +202,5 @@ const Login = () => {
 };
 
 export default Login;
+
+
