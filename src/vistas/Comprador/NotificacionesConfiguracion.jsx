@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Comprador/InicioComprador.css'; // Los estilos
+import '../../estilos/Comprador/NotificacionesConfiguracion.css'; // Los estilos
 
-const InicioComprador = () => {
+const NotificacionesConfiguracion = () => {
   const [isConnected, setIsConnected] = useState(false);
+  const [volumen, setVolumen] = useState(50); // Estado para el volumen
+  const [notificacionesActivas, setNotificacionesActivas] = useState(true); // Estado para activar/desactivar notificaciones
+  const [horario, setHorario] = useState("Todo el día"); // Estado para el horario
+
   const navigate = useNavigate();  // Inicializar useNavigate
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
   };
 
-  const handleGestionPedidosClick = () => {
-    console.log("Redirigiendo a /GestionPedidosComprador");  // Ver si el mensaje aparece en la consola
-    navigate('/GestionPedidosComprador');
+  const handleVolumenChange = (e) => {
+    setVolumen(e.target.value);
   };
 
-  const handleNotificacionesClick = () => {
-    console.log("Redirigiendo a /Notificaciones");
-    navigate('/NotificacionesConfiguracion');
+  const handleNotificacionesToggle = () => {
+    setNotificacionesActivas(!notificacionesActivas);
   };
 
-  const handleCalificacionEvaluacionClick = () => {
-    console.log("Redirigiendo a /CalificacionEvaluacion");
-    navigate('/CalificacionEvaluacion');
+  const handleHorarioChange = (e) => {
+    setHorario(e.target.value);
   };
 
   return (
@@ -62,25 +63,53 @@ const InicioComprador = () => {
 
       {/* Main */}
       <main className="main">
-        <h2>Inicio</h2>
-
-        {/* Botones */}
-        <div className="main-buttons">
-          <button className="button-gestionPedidos" 
-          onClick={handleGestionPedidosClick}
-          >
-            Gestión de Pedidos
-          </button>
-          <button className="button-notificaciones" 
-          onClick={handleNotificacionesClick}
-          >
-            Notificaciones
-          </button>
-          <button className="button-calificacionEvaluacion" 
-          onClick={handleCalificacionEvaluacionClick}
-          >
-            Calificación y Evaluación
-          </button>
+        <h2>Notificaciones</h2>
+        <div className="table-container">
+          <table className="notificaciones-table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Sonido de Notificaciones</th>
+                <th>Activar/Desactivar</th>
+                <th>Horario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Título">Configuración de Notificaciones</td>
+                <td data-label="Sonido de Notificaciones">
+                  <div className="volumen-container">
+                    <label>Volumen:</label>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={volumen}
+                      onChange={handleVolumenChange}
+                      className="volumen-slider"
+                    />
+                    <span>{volumen}%</span>
+                  </div>
+                </td>
+                <td data-label="Activar/Desactivar">
+                  <button
+                    className={`toggle-button ${notificacionesActivas ? "active" : ""}`}
+                    onClick={handleNotificacionesToggle}
+                  >
+                    {notificacionesActivas ? "Activadas" : "Desactivadas"}
+                  </button>
+                </td>
+                <td data-label="Horario">
+                  <select value={horario} onChange={handleHorarioChange} className="horario-select">
+                    <option value="Todo el día">Todo el día</option>
+                    <option value="Mañana">Mañana</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noche">Noche</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
 
@@ -109,4 +138,4 @@ const InicioComprador = () => {
   );
 };
 
-export default InicioComprador ;
+export default NotificacionesConfiguracion;

@@ -1,0 +1,68 @@
+.table-container {
+  margin-top: 20px;
+}
+
+.pedido-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.pedido-table th {
+  background-color: #f2f2f2; 
+  color: #000; 
+  text-align: left;
+  padding: 10px;
+}
+
+.pedido-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.pedido-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.pedido-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Diseño responsivo para mostrar la tabla en forma vertical */
+@media (max-width: 768px) {
+  .pedido-table {
+    border: 0;
+  }
+
+  .pedido-table thead {
+    display: none; 
+  }
+
+  .pedido-table tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .pedido-table td {
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .pedido-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .pedido-table td::before {
+    content: attr(data-label); 
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+}

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Comprador/InicioComprador.css'; // Los estilos
+import '../../estilos/Comprador/CalificacionEvaluacion.css'; // Los estilos
 
-const InicioComprador = () => {
+const CalificacionEvaluacion = () => {
   const [isConnected, setIsConnected] = useState(false);
   const navigate = useNavigate();  // Inicializar useNavigate
 
@@ -10,20 +10,41 @@ const InicioComprador = () => {
     setIsConnected(!isConnected);
   };
 
-  const handleGestionPedidosClick = () => {
-    console.log("Redirigiendo a /GestionPedidosComprador");  // Ver si el mensaje aparece en la consola
-    navigate('/GestionPedidosComprador');
-  };
-
-  const handleNotificacionesClick = () => {
-    console.log("Redirigiendo a /Notificaciones");
-    navigate('/NotificacionesConfiguracion');
-  };
-
-  const handleCalificacionEvaluacionClick = () => {
-    console.log("Redirigiendo a /CalificacionEvaluacion");
-    navigate('/CalificacionEvaluacion');
-  };
+  const pedidos = [
+    {
+      numero: "001",
+      fecha: "2023-10-01",
+      hora: "10:30 AM",
+      estado: "Entregado",
+      detalle: "Pizza grande, 2 bebidas",
+      total: "$50,000",
+      servicioKm: "$5,000",
+      observaciones: "Entregado a tiempo",
+      calificacion: Math.floor(Math.random() * 10) + 1, // Calificación aleatoria
+    },
+    {
+      numero: "002",
+      fecha: "2023-10-02",
+      hora: "12:00 PM",
+      estado: "En camino",
+      detalle: "Hamburguesa, papas fritas",
+      total: "$30,000",
+      servicioKm: "$3,000",
+      observaciones: "Requiere cambio de billete",
+      calificacion: Math.floor(Math.random() * 10) + 1, 
+    },
+    {
+      numero: "003",
+      fecha: "2023-10-03",
+      hora: "08:45 PM",
+      estado: "Cancelado",
+      detalle: "Sushi combo",
+      total: "$40,000",
+      servicioKm: "$4,000",
+      observaciones: "Cancelado por el cliente",
+      calificacion: Math.floor(Math.random() * 10) + 1, 
+    },
+  ];
 
   return (
     <div>
@@ -62,25 +83,38 @@ const InicioComprador = () => {
 
       {/* Main */}
       <main className="main">
-        <h2>Inicio</h2>
-
-        {/* Botones */}
-        <div className="main-buttons">
-          <button className="button-gestionPedidos" 
-          onClick={handleGestionPedidosClick}
-          >
-            Gestión de Pedidos
-          </button>
-          <button className="button-notificaciones" 
-          onClick={handleNotificacionesClick}
-          >
-            Notificaciones
-          </button>
-          <button className="button-calificacionEvaluacion" 
-          onClick={handleCalificacionEvaluacionClick}
-          >
-            Calificación y Evaluación
-          </button>
+        <h2>Calificación y Evaluación</h2>
+        <div className="table-container">
+          <table className="pedido-table">
+            <thead>
+              <tr>
+                <th>Número de Pedido</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Detalle de Pedido</th>
+                <th>Total</th>
+                <th>Valor de Servicio (Km)</th>
+                <th>Observaciones</th>
+                <th>Mi Calificación (1 a 10)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pedidos.map((pedido, index) => (
+                <tr key={index}>
+                  <td data-label="Número de Pedido">{pedido.numero}</td>
+                  <td data-label="Fecha">{pedido.fecha}</td>
+                  <td data-label="Hora">{pedido.hora}</td>
+                  <td data-label="Estado">{pedido.estado}</td>
+                  <td data-label="Detalle de Pedido">{pedido.detalle}</td>
+                  <td data-label="Total">{pedido.total}</td>
+                  <td data-label="Valor de Servicio (Km)">{pedido.servicioKm}</td>
+                  <td data-label="Observaciones">{pedido.observaciones}</td>
+                  <td data-label="Calificación (1 a 10)">{pedido.calificacion}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </main>
 
@@ -109,4 +143,4 @@ const InicioComprador = () => {
   );
 };
 
-export default InicioComprador ;
+export default CalificacionEvaluacion ;

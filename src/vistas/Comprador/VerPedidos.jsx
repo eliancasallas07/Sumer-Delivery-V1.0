@@ -27,7 +27,7 @@ const VerPedidos = () => {
 
         {/* Botones de inicio, regresar, cerrar sesión y switch */}
         <div className="header-buttons">
-          <button className="button-inicio" onClick={() => navigate("/inicio")}>
+          <button className="button-inicio" onClick={() => navigate("//InicioComprador")}>
             <img
               src={require("../../activos/boton-inicio.png")}
               alt="Inicio"

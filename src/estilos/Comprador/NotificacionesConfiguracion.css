@@ -1,0 +1,155 @@
+.table-container {
+  margin-top: 20px;
+}
+
+.notificaciones-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.notificaciones-table th {
+  background-color: #f2f2f2; 
+  color: #000; 
+  text-align: left;
+  padding: 10px;
+}
+
+.notificaciones-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.notificaciones-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.notificaciones-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.volumen-slider {
+  width: 80%;
+  appearance: none;
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.volumen-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #28a745; /* Verde */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.toggle-button {
+  background-color: #28a745; /* Verde */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button.active {
+  background-color: #28a745;
+}
+
+.toggle-button:hover {
+  background-color: #c82333; 
+}
+
+.toggle-button.active:hover {
+  background-color: #218838; 
+}
+
+.horario-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Diseño responsivo para mostrar la tabla en forma vertical */
+@media (max-width: 768px) {
+  .notificaciones-table {
+    border: 0;
+  }
+
+  .notificaciones-table thead {
+    display: none; 
+  }
+
+  .notificaciones-table tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .notificaciones-table td {
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .notificaciones-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .notificaciones-table td::before {
+    content: attr(data-label); 
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .volumen-slider {
+    width: 80%;
+  }
+
+  .toggle-button {
+    width: 100%;
+    text-align: center;
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+
+  .toggle-button.active {
+    background-color: #28a745;
+  }
+
+  .toggle-button:not(.active) {
+    background-color: #dc3545; 
+  }
+
+  .toggle-button:hover {
+    background-color: #c82333; 
+  }
+
+  .toggle-button.active:hover {
+    background-color: #218838; 
+  }
+
+  .horario-select {
+    width: 100%;
+  }
+}

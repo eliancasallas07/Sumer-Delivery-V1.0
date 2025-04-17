@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../estilos/Comprador/GeolocalizacionComprador.css";
 
-// Importación de react-leaflet y estilos de Leaflet
+// Importación de react-leaflet y estilos de Leaflet osea el mapa dentro de este usuario comprador 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -25,9 +25,9 @@ const GeolocalizacionComprador = () => {
           console.error("Error al obtener la geolocalización.", error);
         },
         {
-          enableHighAccuracy: true, // Alta precisión
-          timeout: 5000,             // Tiempo máximo de espera
-          maximumAge: 0             // No usar posiciones anteriores
+          enableHighAccuracy: true, 
+          timeout: 5000,            
+          maximumAge: 0             
         }
       );
 
@@ -64,7 +64,27 @@ const GeolocalizacionComprador = () => {
     }
 
     window.location.href = `tel:${phoneNumber}`;
+  };  
+   
+   // Logica para redirec  cion de los botones de chat con repartidor , restaurante y soporte
+   
+  const handleChatRedirect = (type) => {
+    switch (type) {
+      case "Repartidor":
+        navigate("/chat-repartidor");
+        break;
+      case "Restaurante":
+        navigate("/chat-restaurante");
+        break;
+      case "Soporte":
+        navigate("/chat-soporte");
+        break;
+      default:
+        break;
+    }
   };
+
+ 
 
   return (
     <div>
@@ -80,7 +100,7 @@ const GeolocalizacionComprador = () => {
           <h1>Sumer Delivery Usuario Comprador</h1>
         </div>
         <div className="header-buttons">
-          <button className="button-inicio" onClick={() => navigate("/inicio")}>
+          <button className="button-inicio" onClick={() => navigate("/InicioComprador")}>
             <img
               src={require("../../activos/boton-inicio.png")}
               alt="Inicio"
@@ -123,10 +143,10 @@ const GeolocalizacionComprador = () => {
       </header>
 
       <main className="main geolocalizacion-main">
-        <div className="left-panel">
+      <div className="left-panel">
           <button
             className="chat-button"
-            onClick={() => handleCall("Repartidor")}
+            onClick={() => navigate("/ChatRepartidor")}
           >
             <img
               src={require("../../activos/icono-llamada.png")}
@@ -135,9 +155,10 @@ const GeolocalizacionComprador = () => {
             />{" "}
             Chat con Repartidor
           </button>
+
           <button
             className="chat-button"
-            onClick={() => handleCall("Restaurante")}
+            onClick={() => navigate("/ChatRestaurante")}
           >
             <img
               src={require("../../activos/icono-llamada.png")}
@@ -146,7 +167,9 @@ const GeolocalizacionComprador = () => {
             />{" "}
             Chat con Restaurante
           </button>
-          <button className="chat-button" onClick={() => handleCall("Soporte")}>
+
+          <button 
+          className="chat-button" onClick={() => navigate("/ChatSoporte")}>
             <img
               src={require("../../activos/icono-llamada.png")}
               alt="Llamar"
@@ -181,7 +204,7 @@ const GeolocalizacionComprador = () => {
         {/* Integración del mapa */}
         <div className="map-container">
           <MapContainer
-            center={userPosition} // Usar la ubicación del usuario
+            center={userPosition} // Mi ubucacion
             zoom={13}
             style={{ height: "100%", width: "100%" }}
           >
@@ -231,6 +254,46 @@ const GeolocalizacionComprador = () => {
                 : "Desliza para confirmar"}
             </div>
           </div>
+        </div>
+        <div className="table-container">
+          <table className="pedido-table">
+            <thead>
+              <tr>
+                <th>Número de Pedido</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Detalle</th>
+                <th>Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Ejemplo de datos */}
+              <tr>
+                <td data-label="Número de Pedido">001</td>
+                <td data-label="Fecha">2023-10-01</td>
+                <td data-label="Hora">10:30 AM</td>
+                <td data-label="Estado">Entregado</td>
+                <td data-label="Detalle">Pizza grande, 2 bebidas</td>
+                <td data-label="Total">$50,000</td>
+                <td data-label="Acciones">
+                  <button className="action-button">Ver Detalles</button>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="Número de Pedido">002</td>
+                <td data-label="Fecha">2023-10-02</td>
+                <td data-label="Hora">12:00 PM</td>
+                <td data-label="Estado">En camino</td>
+                <td data-label="Detalle">Hamburguesa, papas fritas</td>
+                <td data-label="Total">$30,000</td>
+                <td data-label="Acciones">
+                  <button className="action-button">Ver Detalles</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
 

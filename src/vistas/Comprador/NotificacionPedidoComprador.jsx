@@ -14,11 +14,24 @@ const NotificacionPedidoComprador = () => {
   };
 
   const handleMedioPagoChange = (e) => {
-    setMedioPago(e.target.value);
+    const selectedMedioPago = e.target.value;
+    setMedioPago(selectedMedioPago);
+
+    // Redirigir automáticamente a PSE si se selecciona esa opción
+    if (selectedMedioPago === "transaccion") {
+      navigate("/pse");
+    }
   };
 
-  const handleFacturaCompradorClick = () => {
-    console.log("Redirigiendo a /FacturaComprador"); // Ver si el mensaje aparece en la consola
+  const handleFacturaCompradorClick = (e) => {
+    // Evitar que el formulario se envíe si no se selecciona un medio de pago
+    if (!medioPago) {
+      e.preventDefault();
+      alert("Por favor, selecciona un medio de pago antes de confirmar el pedido.");
+      return;
+    }
+
+    // Redirigir a la factura si todo está correcto
     navigate("/FacturaComprador");
   };
 
@@ -180,6 +193,7 @@ const NotificacionPedidoComprador = () => {
             onClick={handleFacturaCompradorClick} // Asocia el evento al botón
           >
             Confirmar Pedido
+            
           </button>
         </form>
       </main>

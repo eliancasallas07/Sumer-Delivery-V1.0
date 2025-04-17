@@ -27,6 +27,16 @@ import RealizarPedido from './vistas/Comprador/RealizarPedido.jsx';
 import NotificacionPedidoComprador from './vistas/Comprador/NotificacionPedidoComprador.jsx';
 import FacturaComprador from './vistas/Comprador/FacturaComprador.jsx';
 import GeolocalizacionComprador from './vistas/Comprador/GeolocalizacionComprador.jsx';
+import ChatRepartidor from './vistas/Comprador/ChatRepartidor.jsx';
+import ChatRestaurante from './vistas/Comprador/ChatRestaurante.jsx';
+import ChatSoporte from './vistas/Comprador/ChatSoporte.jsx';
+import CancelarPedido from './vistas/Comprador/CancelarPedido.jsx';
+import GenerarFacturas from './vistas/Comprador/GenerarFacturas.jsx';
+import NotificacionesConfiguracion from './vistas/Comprador/NotificacionesConfiguracion.jsx';
+import CalificacionEvaluacion from './vistas/Comprador/CalificacionEvaluacion.jsx';
+
+
+
 
 
 
@@ -59,6 +69,14 @@ const App = () => {
         <Route path="/NotificacionPedidoComprador" element={<NotificacionPedidoComprador/>} />
         <Route path="/FacturaComprador" element={<FacturaComprador/>} />
         <Route path="/GeolocalizacionComprador" element={<GeolocalizacionComprador/>} />
+        <Route path="/ChatRepartidor" element={<ChatRepartidor/>} />
+        <Route path="/ChatRestaurante" element={<ChatRestaurante/>} />
+        <Route path="/ChatSoporte" element={<ChatSoporte/>} />
+        <Route path="/CancelarPedido" element={<CancelarPedido/>} />
+        <Route path="/GenerarFacturas" element={<GenerarFacturas/>} />
+        <Route path="/NotificacionesConfiguracion" element={<NotificacionesConfiguracion/>} />
+        <Route path="/CalificacionEvaluacion" element={<CalificacionEvaluacion/>} />
+
 
 
 

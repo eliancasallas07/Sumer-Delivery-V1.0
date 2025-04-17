@@ -20,8 +20,7 @@ h2 {
 /* Estilo de cada bloque de pedido */
 .pedido {
   display: grid;
-  grid-template-columns: 1fr 2fr; /* Títulos a la izquierda, datos a la derecha */
-  gap: 1rem;
+  grid-template-columns: 1fr 2fr; 
   margin-bottom: 1.5rem;
   padding: 1rem;
   border: 1px solid #ddd;

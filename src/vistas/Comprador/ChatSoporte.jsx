@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Comprador/InicioComprador.css'; // Los estilos
+import '../../estilos/Comprador/ChatSoporte.css'; // Los estilos
 
-const InicioComprador = () => {
+const ChatSoporte = () => {
   const [isConnected, setIsConnected] = useState(false);
+  const [message, setMessage] = useState(""); // Estado para el mensaje
   const navigate = useNavigate();  // Inicializar useNavigate
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
   };
 
-  const handleGestionPedidosClick = () => {
-    console.log("Redirigiendo a /GestionPedidosComprador");  // Ver si el mensaje aparece en la consola
-    navigate('/GestionPedidosComprador');
-  };
+        // Función para manejar el envío de mensajes
 
-  const handleNotificacionesClick = () => {
-    console.log("Redirigiendo a /Notificaciones");
-    navigate('/NotificacionesConfiguracion');
-  };
+        const handleSendMessage = () => {
+          if (message.trim() === "") {
+            alert("Por favor, escribe un mensaje antes de enviarlo.");
+            return;
+          }
+          console.log("Mensaje enviado:", message);
+          setMessage(""); // Limpiar el campo de mensaje
+        };
+      
+        const handleSendPhoto = () => {
+          console.log("Enviar foto clickeado");
+          alert("Funcionalidad para enviar foto aún no implementada.");
+        };
 
-  const handleCalificacionEvaluacionClick = () => {
-    console.log("Redirigiendo a /CalificacionEvaluacion");
-    navigate('/CalificacionEvaluacion');
-  };
 
   return (
     <div>
@@ -33,7 +36,7 @@ const InicioComprador = () => {
           <img src={require('../../activos/Logotipo.png')} alt="Logo Sumer" className="header-logo" />
         </div>
         <div className="home-header-left">
-          <h1>Bienvenido a Sumer Delivery Usuario Comprador</h1>
+          <h1>Sumer Delivery Usuario Comprador</h1>
         </div>
 
            {/* Botones de inicio, regresar, cerrar sesión y switch */}
@@ -62,25 +65,24 @@ const InicioComprador = () => {
 
       {/* Main */}
       <main className="main">
-        <h2>Inicio</h2>
-
-        {/* Botones */}
-        <div className="main-buttons">
-          <button className="button-gestionPedidos" 
-          onClick={handleGestionPedidosClick}
-          >
-            Gestión de Pedidos
-          </button>
-          <button className="button-notificaciones" 
-          onClick={handleNotificacionesClick}
-          >
-            Notificaciones
-          </button>
-          <button className="button-calificacionEvaluacion" 
-          onClick={handleCalificacionEvaluacionClick}
-          >
-            Calificación y Evaluación
-          </button>
+        <h2>Chat Soporte</h2>
+        <div className="chat-container">
+          <div className="chat-bubble">
+            <textarea
+              className="chat-input"
+              placeholder="Escribe tu mensaje..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            ></textarea>
+            <div className="chat-buttons">
+              <button className="chat-button" onClick={handleSendPhoto}>
+                Enviar Foto
+              </button>
+              <button className="chat-button" onClick={handleSendMessage}>
+                Enviar Mensaje
+              </button>
+            </div>
+          </div>
         </div>
       </main>
 
@@ -109,4 +111,4 @@ const InicioComprador = () => {
   );
 };
 
-export default InicioComprador ;
+export default ChatSoporte;

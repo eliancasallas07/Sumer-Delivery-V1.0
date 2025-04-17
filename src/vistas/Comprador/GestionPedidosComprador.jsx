@@ -23,7 +23,20 @@ const GestionPedidosComprador = () => {
   const handleRealizarPedidoClick = () => {
     console.log("Redirigiendo a /RealizarPedido"); // Ver si el mensaje aparece en la consola
     navigate("/RealizarPedido");
+
   };
+
+  const handleCancelarPedidoClick = () => {
+    console.log("Redirigiendo a /CancelarPedido"); // Ver si el mensaje aparece en la consola
+    navigate("/CancelarPedido");
+  };
+
+  const handleGenerarFacturasClick = () => {
+    console.log("Redirigiendo a /GenerarFacturas"); // Ver si el mensaje aparece en la consola
+    navigate("/GenerarFacturas");
+  };
+
+
 
 
 
@@ -44,7 +57,7 @@ const GestionPedidosComprador = () => {
 
         {/* Botones de inicio, regresar, cerrar sesión y switch */}
         <div className="header-buttons">
-          <button className="button-inicio" onClick={() => navigate("/inicio")}>
+          <button className="button-inicio" onClick={() => navigate("/InicioComprador")}>
             <img
               src={require("../../activos/boton-inicio.png")}
               alt="Inicio"
@@ -113,20 +126,21 @@ const GestionPedidosComprador = () => {
           >
             Realizar pedido
           </button>
-          {/*
+          
           <button
             className="button-CancelarPedido"
             onClick={handleCancelarPedidoClick}
           >
             Cancelar pedido
           </button>
+          
           <button
             className="button-GenerarFacturas"
             onClick={handleGenerarFacturasClick}
           >
             Generar facturas
           </button>
-          */}
+          
         </div>
       </main>
 

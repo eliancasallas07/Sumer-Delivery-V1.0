@@ -18,7 +18,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Lógica de autenticación local (solo si no estás autenticado con Auth0)
+    // Lógica de autenticación local 
     if (!isAuthenticated) {
       if (
         username === "elian casallas" &&
@@ -125,7 +125,7 @@ const Login = () => {
         {/* Botón para iniciar sesión con Google */}
         <div className="auth0-login">
           <button onClick={handleLoginWithAuth0} className="auth0-btn">
-            {/* Usando el logo de Google desde el archivo importado */}
+            {/* Logo de Google  */}
             <img
               src={require("../../activos/logo-google.png")}
               alt="Google"
@@ -202,5 +202,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
