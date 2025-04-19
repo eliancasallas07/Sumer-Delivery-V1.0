@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Necesitamos este hook para la navegación
 import "../../estilos/Administrador/GestionUsuarios.css"; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const GestionUsuarios = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -144,171 +145,199 @@ const GestionUsuarios = () => {
           </button>
         </div>
 
-        
-
         <form onSubmit={handleSubmit} className="user-form">
-          <div className="form-row">
-            <label htmlFor="id">ID:</label>
-            <input
-              type="text"
-              id="id"
-              name="id"
-              value={formData.id}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="nombres">Nombres:</label>
-            <input
-              type="text"
-              id="nombres"
-              name="nombres"
-              value={formData.nombres}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="apellidos">Apellidos:</label>
-            <input
-              type="text"
-              id="apellidos"
-              name="apellidos"
-              value={formData.apellidos}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="documento">Documento (C.C):</label>
-            <input
-              type="text"
-              id="documento"
-              name="documento"
-              value={formData.documento}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="fotoDocumento">Foto de Documento (PDF):</label>
-            <input
-              type="file"
-              id="fotoDocumento"
-              name="fotoDocumento"
-              onChange={handleFileChange}
-              accept=".pdf"
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="direccion">Dirección de Residencia:</label>
-            <input
-              type="text"
-              id="direccion"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="ciudad">Ciudad de Residencia:</label>
-            <input
-              type="text"
-              id="ciudad"
-              name="ciudad"
-              value={formData.ciudad}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="medioPago">Medio de Pago:</label>
-            <select
-              id="medioPago"
-              name="medioPago"
-              value={formData.medioPago}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Seleccione un medio de pago</option>
-              <option value="paypal">Paypal</option>
-              <option value="pse">PSE</option>
-            </select>
-          </div>
-          <div className="form-row">
-            <label htmlFor="calificacion">Calificación (1-10):</label>
-            <input
-              type="number"
-              id="calificacion"
-              name="calificacion"
-              value={formData.calificacion}
-              onChange={handleInputChange}
-              min="1"
-              max="10"
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="rol">Rol:</label>
-            <select
-              id="rol"
-              name="rol"
-              value={formData.rol}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Seleccione un rol</option>
-              <option value="comprador">Comprador</option>
-              <option value="vendedor">Vendedor</option>
-              <option value="repartidor">Repartidor</option>
-            </select>
-          </div>
-          <div className="form-row">
-            <label htmlFor="telefono">Teléfono:</label>
-            <input
-              type="text"
-              id="telefono"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="tienda">Nombre de la Tienda (si aplica):</label>
-            <input
-              type="text"
-              id="tienda"
-              name="tienda"
-              value={formData.tienda}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="documentosVehiculo">
-              Documentos del Vehículo (PDF, si aplica):
-            </label>
-            <input
-              type="file"
-              id="documentosVehiculo"
-              name="documentosVehiculo"
-              onChange={handleFileChange}
-              accept=".pdf"
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="correo">Correo Electrónico:</label>
-            <input
-              type="email"
-              id="correo"
-              name="correo"
-              value={formData.correo}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+          <table className="form-table">
+            <tbody>
+              <tr>
+                <td><label htmlFor="id">ID:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="id"
+                    name="id"
+                    value={formData.id}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="nombres">Nombres:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="nombres"
+                    name="nombres"
+                    value={formData.nombres}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="apellidos">Apellidos:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="apellidos"
+                    name="apellidos"
+                    value={formData.apellidos}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="documento">Documento (C.C):</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="documento"
+                    name="documento"
+                    value={formData.documento}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="fotoDocumento">Foto de Documento (PDF):</label></td>
+                <td>
+                  <input
+                    type="file"
+                    id="fotoDocumento"
+                    name="fotoDocumento"
+                    onChange={handleFileChange}
+                    accept=".pdf"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="direccion">Dirección de Residencia:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="direccion"
+                    name="direccion"
+                    value={formData.direccion}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="ciudad">Ciudad de Residencia:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="ciudad"
+                    name="ciudad"
+                    value={formData.ciudad}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="medioPago">Medio de Pago:</label></td>
+                <td>
+                  <select
+                    id="medioPago"
+                    name="medioPago"
+                    value={formData.medioPago}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Seleccione un medio de pago</option>
+                    <option value="paypal">Paypal</option>
+                    <option value="pse">PSE</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="calificacion">Calificación (1-10):</label></td>
+                <td>
+                  <input
+                    type="number"
+                    id="calificacion"
+                    name="calificacion"
+                    value={formData.calificacion}
+                    onChange={handleInputChange}
+                    min="1"
+                    max="10"
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="rol">Rol:</label></td>
+                <td>
+                  <select
+                    id="rol"
+                    name="rol"
+                    value={formData.rol}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Seleccione un rol</option>
+                    <option value="comprador">Comprador</option>
+                    <option value="vendedor">Vendedor</option>
+                    <option value="repartidor">Repartidor</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="telefono">Teléfono:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="telefono"
+                    name="telefono"
+                    value={formData.telefono}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="tienda">Nombre de la Tienda (si aplica):</label></td>
+                <td>
+                  <input
+                    type="text"
+                    id="tienda"
+                    name="tienda"
+                    value={formData.tienda}
+                    onChange={handleInputChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="documentosVehiculo">Documentos del Vehículo (PDF, si aplica):</label></td>
+                <td>
+                  <input
+                    type="file"
+                    id="documentosVehiculo"
+                    name="documentosVehiculo"
+                    onChange={handleFileChange}
+                    accept=".pdf"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label htmlFor="correo">Correo Electrónico:</label></td>
+                <td>
+                  <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    value={formData.correo}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
           {/* Botones de Aplicar Cambios y Cancelar */}
           <div className="form-actions">

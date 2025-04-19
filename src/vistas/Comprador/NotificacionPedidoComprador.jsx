@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import "../../estilos/Comprador/NotificacionPedidoComprador.css"; // Los estilos
+import '../../Global.css'; // Los estilos
+
 
 
 const NotificacionPedidoComprador = () => {
@@ -47,7 +49,7 @@ const NotificacionPedidoComprador = () => {
           />
         </div>
         <div className="home-header-left">
-          <h1>Bienvenido a Sumer Delivery Usuario Comprador</h1>
+          <h1>Sumer Delivery Usuario Comprador</h1>
         </div>
 
         {/* Botones de inicio, regresar, cerrar sesión y switch */}
@@ -106,57 +108,44 @@ const NotificacionPedidoComprador = () => {
 
         {/* Formulario de Pedido */}
         <form>
-          <table className="form-table">
+          <table className="notificacion-pedido">
             <tbody>
-              {/* Fila para Nombre */}
               <tr className="form-row">
                 <td className="form-title">Nombre:</td>
                 <td className="form-input">
                   <input type="text" name="nombre" />
                 </td>
               </tr>
-
-              {/* Fila para Apellidos */}
               <tr className="form-row">
                 <td className="form-title">Apellidos:</td>
                 <td className="form-input">
                   <input type="text" name="apellidos" />
                 </td>
               </tr>
-
-              {/* Fila para Dirección */}
               <tr className="form-row">
                 <td className="form-title">Dirección:</td>
                 <td className="form-input">
                   <input type="text" name="direccion" />
                 </td>
               </tr>
-
-              {/* Fila para Ciudad */}
               <tr className="form-row">
                 <td className="form-title">Ciudad:</td>
                 <td className="form-input">
                   <input type="text" name="ciudad" />
                 </td>
               </tr>
-
-              {/* Fila para Descripción del Pedido */}
               <tr className="form-row">
                 <td className="form-title">Descripción del Pedido:</td>
                 <td className="form-input">
                   <textarea name="descripcion" rows="4"></textarea>
                 </td>
               </tr>
-
-              {/* Fila para Teléfono */}
               <tr className="form-row">
                 <td className="form-title">Teléfono:</td>
                 <td className="form-input">
                   <input type="tel" name="telefono" />
                 </td>
               </tr>
-
-              {/* Fila para Medio de Pago */}
               <tr className="form-row">
                 <td className="form-title">Medio de Pago:</td>
                 <td className="form-input">
@@ -171,8 +160,6 @@ const NotificacionPedidoComprador = () => {
                   </select>
                 </td>
               </tr>
-
-              {/* Si el medio de pago es Transacción, mostrar opciones adicionales */}
               {medioPago === "transaccion" && (
                 <tr className="form-row">
                   <td className="form-title">PSE:</td>
@@ -185,17 +172,16 @@ const NotificacionPedidoComprador = () => {
               )}
             </tbody>
           </table>
-
-          {/* Botón para confirmar el pedido */}
           <button
             type="submit"
             className="submit-btn-Confirmar"
-            onClick={handleFacturaCompradorClick} // Asocia el evento al botón
+            onClick={handleFacturaCompradorClick}
           >
             Confirmar Pedido
-            
           </button>
         </form>
+
+    
       </main>
       {/* Footer */}
       <footer className="footer">

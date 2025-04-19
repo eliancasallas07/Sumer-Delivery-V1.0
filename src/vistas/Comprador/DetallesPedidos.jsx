@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import "../../estilos/Comprador/DetallesPedidos.css"; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const DetallesPedidos = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -73,123 +74,83 @@ const DetallesPedidos = () => {
 
       {/* Main */}
       <main className="main">
-        <h2>Ver Detalles Mis Pedidos </h2>
+        <h2>Ver Detalles Mis Pedidos</h2>
 
-        {/* Contenedor de los pedidos */}
-        <div className="tabla-pedidos">
-          {/* Pedido 1 */}
-          <div className="pedido">
-            <div className="pedido-titulo">Número de Pedido</div>
-            <div className="pedido-dato">#001</div>
-
-            <div className="pedido-titulo">Fecha</div>
-            <div className="pedido-dato">2025-01-20</div>
-
-            <div className="pedido-titulo">Hora</div>
-            <div className="pedido-dato">10:00 AM</div>
-
-            <div className="pedido-titulo">Tienda</div>
-            <div className="pedido-dato">TACOS BAR Y LEÑA</div>
-
-            <div className="pedido-titulo">Detalle de pedido</div>
-            <div className="pedido-dato">
-              {" "}
-              Combo1 six pack aguila + tacos tradionales
-            </div>
-
-            <div className="pedido-titulo">Observaciones</div>
-            <div className="pedido-dato">Exitoso</div>
-
-            <div className="pedido-titulo">Estado</div>
-            <div className="pedido-dato">
-              <div className="estado">
-                <span className="estado-texto">Entregado</span>
-                <img
-                  src={require("../../activos/logo-entregado.png")}
-                  alt="Logo Entregado"
-                  className="estado-icono"
-                />
-              </div>
-            </div>
-
-            <div className="pedido-titulo">Total</div>
-            <div className="pedido-dato">$50.00</div>
-          </div>
-
-          {/* Pedido 2 */}
-          <div className="pedido">
-            <div className="pedido-titulo">Número de Pedido</div>
-            <div className="pedido-dato">#002</div>
-
-            <div className="pedido-titulo">Fecha</div>
-            <div className="pedido-dato">2025-01-22</div>
-
-            <div className="pedido-titulo">Hora</div>
-            <div className="pedido-dato">02:15 PM</div>
-
-            <div className="pedido-titulo">Tienda</div>
-            <div className="pedido-dato">EXITO VIVA CC</div>
-
-            <div className="pedido-titulo">Detalle de pedido</div>
-            <div className="pedido-dato">
-              {" "}
-              Cuchilla de afeitar electrica + crema de afeitar
-            </div>
-
-            <div className="pedido-titulo">Observaciones</div>
-            <div className="pedido-dato">Se demoro mas de lo esperado</div>
-
-            <div className="pedido-titulo">Estado</div>
-            <div className="pedido-dato">
-              <div className="estado">
-                <span className="estado-texto">En Proceso</span>
-                <img
-                  src={require("../../activos/logo-enproceso.png")}
-                  alt="Logo En Proceso"
-                  className="estado-icono"
-                />
-              </div>
-            </div>
-
-            <div className="pedido-titulo">Total</div>
-            <div className="pedido-dato">$30.00</div>
-          </div>
-
-          {/* Pedido 3 */}
-          <div className="pedido">
-            <div className="pedido-titulo">Número de Pedido</div>
-            <div className="pedido-dato">#003</div>
-
-            <div className="pedido-titulo">Fecha</div>
-            <div className="pedido-dato">2025-01-23</div>
-
-            <div className="pedido-titulo">Hora</div>
-            <div className="pedido-dato">04:00 PM</div>
-
-            <div className="pedido-titulo">Tienda</div>
-            <div className="pedido-dato">CENTRO GAMER</div>
-
-            <div className="pedido-titulo">Detalle de pedido</div>
-            <div className="pedido-dato"> 1 Mouse Gamer</div>
-
-            <div className="pedido-titulo">Observaciones</div>
-            <div className="pedido-dato">Cancelado por fraude</div>
-
-            <div className="pedido-titulo">Estado</div>
-            <div className="pedido-dato">
-              <div className="estado">
-                <span className="estado-texto">Cancelado</span>
-                <img
-                  src={require("../../activos/logo-cancelado.png")}
-                  alt="Logo Cancelado"
-                  className="estado-icono"
-                />
-              </div>
-            </div>
-
-            <div className="pedido-titulo">Total</div>
-            <div className="pedido-dato">$15.00</div>
-          </div>
+        {/* Tabla de detalles de pedidos */}
+        <div className="table-container">
+          <table className="pedido-table">
+            <thead>
+              <tr>
+                <th>Número de Pedido</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Tienda</th>
+                <th>Detalle de Pedido</th>
+                <th>Observaciones</th>
+                <th>Estado</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Número de Pedido">#001</td>
+                <td data-label="Fecha">2025-01-20</td>
+                <td data-label="Hora">10:00 AM</td>
+                <td data-label="Tienda">TACOS BAR Y LEÑA</td>
+                <td data-label="Detalle de Pedido">Combo1 six pack aguila + tacos tradicionales</td>
+                <td data-label="Observaciones">Exitoso</td>
+                <td data-label="Estado">
+                  <div className="estado">
+                    <span className="estado-texto">Entregado</span>
+                    <img
+                      src={require("../../activos/logo-entregado.png")}
+                      alt="Logo Entregado"
+                      className="estado-icono"
+                    />
+                  </div>
+                </td>
+                <td data-label="Total">$50.00</td>
+              </tr>
+              <tr>
+                <td data-label="Número de Pedido">#002</td>
+                <td data-label="Fecha">2025-01-22</td>
+                <td data-label="Hora">02:15 PM</td>
+                <td data-label="Tienda">EXITO VIVA CC</td>
+                <td data-label="Detalle de Pedido">Cuchilla de afeitar eléctrica + crema de afeitar</td>
+                <td data-label="Observaciones">Se demoró más de lo esperado</td>
+                <td data-label="Estado">
+                  <div className="estado">
+                    <span className="estado-texto">En Proceso</span>
+                    <img
+                      src={require("../../activos/logo-enproceso.png")}
+                      alt="Logo En Proceso"
+                      className="estado-icono"
+                    />
+                  </div>
+                </td>
+                <td data-label="Total">$30.00</td>
+              </tr>
+              <tr>
+                <td data-label="Número de Pedido">#003</td>
+                <td data-label="Fecha">2025-01-23</td>
+                <td data-label="Hora">04:00 PM</td>
+                <td data-label="Tienda">CENTRO GAMER</td>
+                <td data-label="Detalle de Pedido">1 Mouse Gamer</td>
+                <td data-label="Observaciones">Cancelado por fraude</td>
+                <td data-label="Estado">
+                  <div className="estado">
+                    <span className="estado-texto">Cancelado</span>
+                    <img
+                      src={require("../../activos/logo-cancelado.png")}
+                      alt="Logo Cancelado"
+                      className="estado-icono"
+                    />
+                  </div>
+                </td>
+                <td data-label="Total">$15.00</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
 

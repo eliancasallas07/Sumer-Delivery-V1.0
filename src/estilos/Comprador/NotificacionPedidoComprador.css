@@ -1,139 +1,67 @@
-/* Estilo del título h2 */
-h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  /* Estilo de la tabla de formulario */
-  .form-table {
-    width: 100%;
-    margin-top: 2rem;
-    overflow-x: auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-  }
-  
-  /* Estilo de cada fila del formulario */
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Estilo para los títulos dentro de cada fila */
-  .form-title {
-    font-weight: bold;
-    color: #333;
-    font-size: 1rem;
-    background-color: #f0f0f0; /* Fondo gris para los títulos */
-    padding: 0.5rem;
-    border-radius: 4px;
-    text-align: center; /* Centrar el texto en los títulos */
-  }
-  
-  /* Estilo para los campos de datos dentro del formulario */
-  .form-input {
-    font-size: 1rem;
-    color: #333;
+@media screen and (max-width: 768px) {
+  .notificacion-pedido {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center; /* Centrar los datos en cada celda */
+    flex-direction: column; /* Organizar contenido de forma vertical */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: flex-start; /* Alinear contenido desde arriba */
+    text-align: center; /* Centrar texto */
+    padding: 1rem; /* Espaciado interno */
+    gap: 1rem; /* Espaciado entre elementos */
   }
-  
-  .form-input input,
-  .form-input select,
-  .form-input textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  }
-  
-  .form-input input:focus,
-  .form-input select:focus,
-  .form-input textarea:focus {
-    border-color: #4caf50;
-    outline: none;
-  }
-  
-  /* Estilo para el botón de enviar */
-  .submit-btn-Confirmar {
-    width: 100%;
-    padding: 1rem;
-    background-color: #4caf50  ;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    margin-top: 1rem;
-  }
-  
 
-  /* Estilo al pasar el mouse por encima */
-  .submit-btn:hover {
-    background-color: #45a049; /* Sombra más oscura al pasar el mouse */
+  .notificacion-pedido table {
+    width: 100%; /* Ancho completo de la tabla */;
+    border-collapse: collapse; /* Eliminar espacios entre celdas */
   }
-  
-  /* ========================== MEDIA QUERIES ========================== */
-  
-  /* Para dispositivos móviles (menos de 600px) */
-  @media (max-width: 600px) {
-    .form-row {
-      grid-template-columns: 1fr; /* En móviles, todo en una sola columna */
-    }
-  
-    .form-title,
-    .form-input {
-      font-size: 0.9rem;
-    }
-  
-    .submit-btn {
-      font-size: 1rem;
-      padding: 0.8rem;
-    }
+
+  .notificacion-pedido thead {
+    display: none; /* Ocultar encabezados de la tabla */
   }
-  
-  /* Para tablets (600px a 768px) */
-  @media (max-width: 768px) {
-    .form-row {
-      grid-template-columns: 1fr; /* En tablets, todo en una sola columna */
-    }
-  
-    .form-title,
-    .form-input {
-      font-size: 1rem;
-    }
-  
-    .submit-btn {
-      font-size: 1.1rem;
-      padding: 0.9rem;
-    }
+
+  .notificacion-pedido tr {
+    display: block; /* Hacer que cada fila sea un bloque */
+    margin-bottom: 1rem; /* Espaciado entre filas */
+    border: 1px solid #ddd; /* Agregar borde a cada fila */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 1rem; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco */
   }
-  
-  /* Para pantallas grandes (mayores a 768px) */
-  @media (min-width: 769px) {
-    .form-row {
-      grid-template-columns: 1fr 2fr; /* Títulos a la izquierda, datos a la derecha */
-    }
-  
-    .form-title,
-    .form-input {
-      font-size: 1rem;
-    }
-  
-    .submit-btn {
-      font-size: 1.2rem;
-      padding: 1rem;
-    }
+
+  .notificacion-pedido td {
+    display: flex; /* Hacer que cada celda sea un bloque flexible */
+    justify-content: space-between; /* Espaciado entre el título y el contenido */
+    align-items: center; /* Alinear verticalmente */
+    padding: 0.5rem 0; /* Espaciado interno */
+    border: none; /* Eliminar bordes entre celdas */
+    text-align: left; /* Alinear texto a la izquierda */
+    word-wrap: break-word; /* Ajustar texto largo */
+    overflow-wrap: break-word; /* Ajustar texto largo */
   }
+
+  .notificacion-pedido td::before {
+    content: attr(data-label); /* Usar el atributo data-label como título */
+    font-weight: bold; /* Negrita para el título */
+    color: #333; /* Color del título */
+    flex-shrink: 0; /* Evitar que el título se reduzca */
+    margin-right: 1rem; /* Espaciado entre el título y el contenido */
+  }
+
+  .notificacion-pedido td:last-child {
+    border-bottom: none; /* Eliminar borde inferior de la última celda */
+  }
+
+  .notificacion-pedido input,
+  .notificacion-pedido select,
+  .notificacion-pedido textarea {
+    width: 90%; /* Reducir el ancho de los inputs */
+    max-width: 300px; /* Limitar el ancho máximo */
+    padding: 0.5rem; /* Ajustar el padding interno */
+    font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+    margin: 0.5rem auto; /* Centrar los inputs y agregar espacio */
+    display: block; /* Asegurar que los inputs sean bloques */
+  }
+
+  .notificacion-pedido textarea {
+    resize: vertical; /* Permitir solo el ajuste vertical */
+  }
+}

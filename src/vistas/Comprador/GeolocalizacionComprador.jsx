@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../estilos/Comprador/GeolocalizacionComprador.css";
+import '../../Global.css'; // Los estilos
 
 // Importación de react-leaflet y estilos de Leaflet osea el mapa dentro de este usuario comprador 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -9,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 const GeolocalizacionComprador = () => {
   const [sliderValue, setSliderValue] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
-  const [userPosition, setUserPosition] = useState([51.505, -0.09]); // Posición por defecto
+  const [userPosition, setUserPosition] = useState([4.711, -74.0721]); // Coordenadas de Bogotá, Colombia
   const navigate = useNavigate();
 
   // Obtener la ubicación del usuario en tiempo real
@@ -143,158 +144,121 @@ const GeolocalizacionComprador = () => {
       </header>
 
       <main className="main geolocalizacion-main">
-      <div className="left-panel">
-          <button
-            className="chat-button"
-            onClick={() => navigate("/ChatRepartidor")}
-          >
-            <img
-              src={require("../../activos/icono-llamada.png")}
-              alt="Llamar"
-              className="icono-llamada"
-            />{" "}
-            Chat con Repartidor
-          </button>
+        <table className="geolocalizacion-table">
+          <tbody>
+            <tr>
+              <td className="left-panel">
+                <button
+                  className="chat-button"
+                  onClick={() => navigate("/ChatRepartidor")}
+                >
+                  <img
+                    src={require("../../activos/icono-llamada.png")}
+                    alt="Llamar"
+                    className="icono-llamada"
+                  />{" "}
+                  Chat con Repartidor
+                </button>
 
-          <button
-            className="chat-button"
-            onClick={() => navigate("/ChatRestaurante")}
-          >
-            <img
-              src={require("../../activos/icono-llamada.png")}
-              alt="Llamar"
-              className="icono-llamada"
-            />{" "}
-            Chat con Restaurante
-          </button>
+                <button
+                  className="chat-button"
+                  onClick={() => navigate("/ChatRestaurante")}
+                >
+                  <img
+                    src={require("../../activos/icono-llamada.png")}
+                    alt="Llamar"
+                    className="icono-llamada"
+                  />{" "}
+                  Chat con Restaurante
+                </button>
 
-          <button 
-          className="chat-button" onClick={() => navigate("/ChatSoporte")}>
-            <img
-              src={require("../../activos/icono-llamada.png")}
-              alt="Llamar"
-              className="icono-llamada"
-            />{" "}
-            Chat con Soporte
-          </button>
-          <textarea
-            className="observaciones"
-            placeholder="Escribe tus observaciones..."
-          ></textarea>
-          <div className="calificacion">
-            <label>Califica Restaurante (1 a 10):</label>
-            <input
-              type="number"
-              min="1"
-              max="10"
-              className="calificacion-input"
-            />
-          </div>
-          <div className="calificacion">
-            <label>Califica Repartidor (1 a 10):</label>
-            <input
-              type="number"
-              min="1"
-              max="10"
-              className="calificacion-input"
-            />
-          </div>
-        </div>
-
-        {/* Integración del mapa */}
-        <div className="map-container">
-          <MapContainer
-            center={userPosition} // Mi ubucacion
-            zoom={13}
-            style={{ height: "100%", width: "100%" }}
-          >
-            {/* Mapa de OpenStreetMap */}
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {/* Marcador de ubicación */}
-            <Marker position={userPosition}>
-              <Popup>
-                <span>Ubicación actual</span>
-              </Popup>
-            </Marker>
-          </MapContainer>
-        </div>
-
-        <div className="right-panel">
-          <div className="pin-container">
-            <span className="pin-number" style={{ backgroundColor: "red" }}>
-              1235
-            </span>
-            <span>PIN de Entrega</span>
-          </div>
-          <div className="confirmacion">
-            <p>Confirmación de entrega en buenas condiciones (TyC)</p>
-          </div>
-          <div className="slider-container">
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={sliderValue}
-              onChange={handleSliderChange}
-              className="slider-input"
-            />
-            <div className="slider-track">
-              <div
-                className="slider-fill"
-                style={{ width: `${sliderValue}%` }}
-              ></div>
-              <div
-                className="slider-thumb"
-                style={{ left: `${sliderValue}%` }}
-              ></div>
-            </div>
-            <div className="slider-text">
-              {sliderValue === 100
-                ? "Deslizar para confirmar entrega"
-                : "Desliza para confirmar"}
-            </div>
-          </div>
-        </div>
-        <div className="table-container">
-          <table className="pedido-table">
-            <thead>
-              <tr>
-                <th>Número de Pedido</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Estado</th>
-                <th>Detalle</th>
-                <th>Total</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Ejemplo de datos */}
-              <tr>
-                <td data-label="Número de Pedido">001</td>
-                <td data-label="Fecha">2023-10-01</td>
-                <td data-label="Hora">10:30 AM</td>
-                <td data-label="Estado">Entregado</td>
-                <td data-label="Detalle">Pizza grande, 2 bebidas</td>
-                <td data-label="Total">$50,000</td>
-                <td data-label="Acciones">
-                  <button className="action-button">Ver Detalles</button>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Número de Pedido">002</td>
-                <td data-label="Fecha">2023-10-02</td>
-                <td data-label="Hora">12:00 PM</td>
-                <td data-label="Estado">En camino</td>
-                <td data-label="Detalle">Hamburguesa, papas fritas</td>
-                <td data-label="Total">$30,000</td>
-                <td data-label="Acciones">
-                  <button className="action-button">Ver Detalles</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                <button
+                  className="chat-button"
+                  onClick={() => navigate("/ChatSoporte")}
+                >
+                  <img
+                    src={require("../../activos/icono-llamada.png")}
+                    alt="Llamar"
+                    className="icono-llamada"
+                  />{" "}
+                  Chat con Soporte
+                </button>
+                <textarea
+                  className="observaciones"
+                  placeholder="Escribe tus observaciones..."
+                ></textarea>
+                <div className="calificacion">
+                  <label>Califica Restaurante (1 a 10):</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    className="calificacion-input"
+                  />
+                </div>
+                <div className="calificacion">
+                  <label>Califica Repartidor (1 a 10):</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    className="calificacion-input"
+                  />
+                </div>
+              </td>
+              <td className="map-container">
+                <MapContainer
+                  center={userPosition} // Ubicación inicial en Bogotá
+                  zoom={13}
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <Marker position={userPosition}>
+                    <Popup>
+                      <span>Ubicación actual: Bogotá, Colombia</span>
+                    </Popup>
+                  </Marker>
+                </MapContainer>
+              </td>
+              <td className="right-panel">
+                <div className="pin-container">
+                  <span className="pin-number" style={{ backgroundColor: "red" }}>
+                    1235
+                  </span>
+                  <span>PIN de Entrega</span>
+                </div>
+                <div className="confirmacion">
+                  <p>Confirmación de entrega en buenas condiciones (TyC)</p>
+                </div>
+                <div className="slider-container">
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={sliderValue}
+                    onChange={handleSliderChange}
+                    className="slider-input"
+                  />
+                  <div className="slider-track">
+                    <div
+                      className="slider-fill"
+                      style={{ width: `${sliderValue}%` }}
+                    ></div>
+                    <div
+                      className="slider-thumb"
+                      style={{ left: `${sliderValue}%` }}
+                    ></div>
+                  </div>
+                  <div className="slider-text">
+                    {sliderValue === 100
+                      ? "Deslizar para confirmar entrega"
+                      : "Desliza para confirmar"}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </main>
 
       {/* Footer */}

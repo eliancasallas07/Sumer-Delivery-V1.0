@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import '../../estilos/Administrador/GestionQuejasSugerencias.css'; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const GestionQuejasSugerencias = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -101,67 +102,89 @@ const GestionQuejasSugerencias = () => {
       <main className="main">
         <h2>Gestión de Quejas y Sugerencias</h2>
 
-        {/* Formulario para ingresar datos */}
-        <div className="form-container">
-          <label>ID Usuario:</label>
-          <input
-            type="text"
-            value={usuarioId}
-            onChange={(e) => setUsuarioId(e.target.value)}
-            placeholder="Ingrese el ID del usuario"
-          />
+        {/* Formulario para ingresar datos en tabla */}
+        <table className="form-table">
+          <tbody>
+            <tr>
+              <td><label>ID Usuario:</label></td>
+              <td>
+                <input
+                  type="text"
+                  value={usuarioId}
+                  onChange={(e) => setUsuarioId(e.target.value)}
+                  placeholder="Ingrese el ID del usuario"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label>Documento:</label></td>
+              <td>
+                <input
+                  type="text"
+                  value={documento}
+                  onChange={(e) => setDocumento(e.target.value)}
+                  placeholder="Ingrese el documento"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label>Tipo de Usuario:</label></td>
+              <td>
+                <div className="checkbox-container">
+                  <label className="checkbox-label">
+                    <input type="radio" name="usuarioTipo" onChange={() => setUsuarioTipo('Comprador')} /> Comprador
+                  </label>
+                  <label className="checkbox-label">
+                    <input type="radio" name="usuarioTipo" onChange={() => setUsuarioTipo('Vendedor')} /> Vendedor
+                  </label>
+                  <label className="checkbox-label">
+                    <input type="radio" name="usuarioTipo" onChange={() => setUsuarioTipo('Repartidor')} /> Repartidor
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="2" style={{ textAlign: "center" }}>
+                <button className="botonConsulta" onClick={handleConsultar}>
+                  Consultar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <label>Documento:</label>
-          <input
-            type="text"
-            value={documento}
-            onChange={(e) => setDocumento(e.target.value)}
-            placeholder="Ingrese el documento"
-          />
-
-          <div className="checkbox-container">
-            <label className="checkbox-label">
-              <input type="radio" name="usuarioTipo" onChange={() => setUsuarioTipo('Comprador')} /> Comprador
-            </label>
-            <label className="checkbox-label">
-              <input type="radio" name="usuarioTipo" onChange={() => setUsuarioTipo('Vendedor')} /> Vendedor
-            </label>
-            <label className="checkbox-label">
-              <input type="radio" name="usuarioTipo" onChange={() => setUsuarioTipo('Repartidor')} /> Repartidor
-            </label>
-          </div>
-
-          <button className="botonConsulta" onClick={handleConsultar}>
-            Consultar
-          </button>
-        </div>
-
-        {/* Secciones de consulta: Reportes, Soporte, Comunicación */}
-        <div className="section-container">
-          {/* Sección Reportes */}
-          <div className="section reportes">
-            <h3>Reportes</h3>
-            <p><strong>Generar, Visualizar, Actualizar Reportes</strong></p>
-            <button>Generar Reportes</button>
-            <button>Visualizar Reportes</button>
-            <button>Actualizar Reportes</button>
-            <button>Obtener Reportes Comprimidos</button>
-          </div>
-
-          {/* Sección Soporte */}
-          <div className="section soporte">
-            <h3>Soporte</h3>
-            <p><strong>Visualizar Historial en Soporte</strong></p>
-            <button>Ver Historial de Soporte</button>
-          </div>
-
-          {/* Sección Comunicación */}
-          <div className="section comunicacion">
-            <h3>Comunicación</h3>
-            <p><strong>Visualizar Chat</strong></p>
-            <button>Ver Chat</button>
-          </div>
-        </div>
+        {/* Secciones de consulta en tabla */}
+        <table className="section-table">
+          <thead>
+            <tr>
+              <th>Sección</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reportes</td>
+              <td>
+                <button>Generar Reportes</button>
+                <button>Visualizar Reportes</button>
+                <button>Actualizar Reportes</button>
+                <button>Obtener Reportes Comprimidos</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Soporte</td>
+              <td>
+                <button>Ver Historial de Soporte</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Comunicación</td>
+              <td>
+                <button>Ver Chat</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         {/* Tabla de Quejas y Sugerencias */}
         <h4>Tabla de Quejas y Sugerencias</h4>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../estilos/Comprador/RealizarPedido.css";
+import '../../Global.css'; // Los estilos
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa"; // Icono del carrito
 

@@ -35,7 +35,13 @@ import GenerarFacturas from './vistas/Comprador/GenerarFacturas.jsx';
 import NotificacionesConfiguracion from './vistas/Comprador/NotificacionesConfiguracion.jsx';
 import CalificacionEvaluacion from './vistas/Comprador/CalificacionEvaluacion.jsx';
 
-
+// Rutas de Vendedor
+import InicioVendedor from './vistas/Vendedor/InicioVendedor.jsx';
+import GestionPedidosVendedor from './vistas/Vendedor/GestionPedidosVendedor.jsx';
+import GestionProductos from './vistas/Vendedor/GestionProductos.jsx';
+import NotificacionPedidoVendedor from './vistas/Vendedor/NotificacionPedidoVendedor.jsx';
+import NotificacionesVendedor from './vistas/Vendedor/NotificacionesVendedor.jsx';
+import CalificacionEvaluacionVendedor from './vistas/Vendedor/CalificacionEvaluacionVendedor.jsx';
 
 
 
@@ -77,6 +83,18 @@ const App = () => {
         <Route path="/NotificacionesConfiguracion" element={<NotificacionesConfiguracion/>} />
         <Route path="/CalificacionEvaluacion" element={<CalificacionEvaluacion/>} />
 
+        {/* Rutas para Vendedor*/}
+        <Route path="/InicioVendedor" element={<InicioVendedor />} />
+        <Route path="/GestionPedidosVendedor" element={<GestionPedidosVendedor />} />
+        <Route path="/GestionProductos" element={<GestionProductos />} />
+        <Route path="/NotificacionPedidoVendedor" element={<NotificacionPedidoVendedor />} />
+        <Route path="/NotificacionesVendedor" element={<NotificacionesVendedor />} />
+        <Route path="/CalificacionEvaluacionVendedor" element={<CalificacionEvaluacionVendedor />} />
+
+       
+
+
+        
 
 
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
 import '../../estilos/Comprador/NotificacionesConfiguracion.css'; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const NotificacionesConfiguracion = () => {
   const [isConnected, setIsConnected] = useState(false);

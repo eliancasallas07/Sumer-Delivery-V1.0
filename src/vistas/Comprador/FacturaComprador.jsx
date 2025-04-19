@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import "../../estilos/Comprador/FacturaComprador.css"; // Los estilos
+import '../../Global.css'; // Los estilos
 import { jsPDF } from "jspdf"; // Importar jsPDF
 
 const FacturaComprador = () => {
@@ -80,7 +81,7 @@ const FacturaComprador = () => {
           />
         </div>
         <div className="home-header-left">
-          <h1>Bienvenido a Sumer Delivery Usuario Comprador</h1>
+          <h1>Sumer Delivery Usuario Comprador</h1>
         </div>
 
         {/* Botones de inicio, regresar, cerrar sesión y switch */}
@@ -162,23 +163,23 @@ const FacturaComprador = () => {
           </thead>
           <tbody>
             <tr>
-              <td>{factura.numeroPedido}</td>
-              <td>{factura.fecha}</td>
-              <td>{factura.hora}</td>
-              <td>
+              <td data-label="Número de Pedido">{factura.numeroPedido}</td>
+              <td data-label="Fecha">{factura.fecha}</td>
+              <td data-label="Hora">{factura.hora}</td>
+              <td data-label="Estado">
                 <img
                   src={factura.logoEstado}
                   alt="Estado"
                   className="logo-estado"
                 />
               </td>
-              <td>{factura.detalle}</td>
-              <td>{factura.total}</td>
-              <td>
+              <td data-label="Detalle">{factura.detalle}</td>
+              <td data-label="Total">{factura.total}</td>
+              <td data-label="Valor Servicio Domicilio">
                 {factura.servicioDomicilio} ({factura.km} km)
               </td>
-              <td>{factura.observaciones}</td>
-              <td>{factura.nombreFactura}</td>
+              <td data-label="Observaciones">{factura.observaciones}</td>
+              <td data-label="Factura">{factura.nombreFactura}</td>
             </tr>
           </tbody>
         </table>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
 import '../../estilos/Comprador/ChatSoporte.css'; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const ChatSoporte = () => {
   const [isConnected, setIsConnected] = useState(false);

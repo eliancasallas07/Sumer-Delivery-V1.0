@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
 import '../../estilos/Comprador/ChatRestaurante.css'; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const ChatRestaurante = () => {
   const [isConnected, setIsConnected] = useState(false);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import '../../estilos/Administrador/MonitoreoReportes.css'; // Los estilos
+import '../../Global.css'; // Los estilos
 
 const MonitoreoReportes = () => {
   const [usuarioId, setUsuarioId] = useState('');
@@ -102,40 +103,56 @@ const MonitoreoReportes = () => {
       <main className="main">
         <h2>Monitoreo y Reportes</h2>
 
-        {/* Formulario para ingresar datos */}
-        <div className="form-container">
-          <label>ID Usuario:</label>
-          <input
-            type="text"
-            value={usuarioId}
-            onChange={(e) => setUsuarioId(e.target.value)}
-            placeholder="Ingrese el ID del usuario"
-          />
-
-          <label>Documento:</label>
-          <input
-            type="text"
-            value={documento}
-            onChange={(e) => setDocumento(e.target.value)}
-            placeholder="Ingrese el documento"
-          />
-
-          <div className="checkbox-container">
-            <label className="checkbox-label">
-              <input type="radio" name="rol" onChange={() => setRol('Comprador')} /> Comprador
-            </label>
-            <label className="checkbox-label">
-              <input type="radio" name="rol" onChange={() => setRol('Vendedor')} /> Vendedor
-            </label>
-            <label className="checkbox-label">
-              <input type="radio" name="rol" onChange={() => setRol('Repartidor')} /> Repartidor
-            </label>
-          </div>
-
-          <button className="botonConsulta" onClick={handleConsulta}>
-            Consultar
-          </button>
-        </div>
+        {/* Formulario para ingresar datos en tabla */}
+        <table className="form-table">
+          <tbody>
+            <tr>
+              <td><label>ID Usuario:</label></td>
+              <td>
+                <input
+                  type="text"
+                  value={usuarioId}
+                  onChange={(e) => setUsuarioId(e.target.value)}
+                  placeholder="Ingrese el ID del usuario"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label>Documento:</label></td>
+              <td>
+                <input
+                  type="text"
+                  value={documento}
+                  onChange={(e) => setDocumento(e.target.value)}
+                  placeholder="Ingrese el documento"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label>Rol:</label></td>
+              <td>
+                <div className="checkbox-container">
+                  <label className="checkbox-label">
+                    <input type="radio" name="rol" onChange={() => setRol('Comprador')} /> Comprador
+                  </label>
+                  <label className="checkbox-label">
+                    <input type="radio" name="rol" onChange={() => setRol('Vendedor')} /> Vendedor
+                  </label>
+                  <label className="checkbox-label">
+                    <input type="radio" name="rol" onChange={() => setRol('Repartidor')} /> Repartidor
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="2" style={{ textAlign: "center" }}>
+                <button className="botonConsulta" onClick={handleConsulta}>
+                  Consultar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         {/* Mostrar la tabla según el tipo de rol */}
         {datosReporte && (
@@ -169,7 +186,7 @@ const MonitoreoReportes = () => {
                 </tr>
                 {datosReporte.categoria && (
                   <tr>
-                    <th>{`Categoría más vendida`}</th>
+                    <th>Categoría más vendida</th>
                     <td>{datosReporte.categoria}</td>
                   </tr>
                 )}
@@ -199,7 +216,7 @@ const MonitoreoReportes = () => {
             </table>
 
             {/* Botón para descargar archivo comprimido */}
-            <div className="download-container">
+            <div className="download-container" style={{ textAlign: "center" }}>
               <button className="download-button" onClick={handleDownload}>
                 Descargar Reporte Comprimido
               </button>

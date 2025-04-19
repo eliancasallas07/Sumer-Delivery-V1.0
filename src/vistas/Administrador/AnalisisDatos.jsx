@@ -94,86 +94,95 @@ const AnalisisDatos = () => {
       <main className="main">
         <h2>Analisis de Datos</h2>
 
-        {/* Formulario para ingresar datos */}
-        <div className="form-container">
-          <label>ID Usuario:</label>
-          <input
-            type="text"
-            value={usuarioId}
-            onChange={(e) => setUsuarioId(e.target.value)}
-            placeholder="Ingrese el ID del usuario"
-          />
-
-          <label>Documento:</label>
-          <input
-            type="text"
-            value={documento}
-            onChange={(e) => setDocumento(e.target.value)}
-            placeholder="Ingrese el documento"
-          />
-
-          <div className="checkbox-container">
-            <label className="checkbox-label">
-              <input type="radio" />
-              Comprador
-            </label>
-            <label className="checkbox-label">
-              <input type="radio" />
-              Vendedor
-            </label>
-            <label className="checkbox-label">
-              <input type="radio" />
-              Repartidor
-            </label>
-          </div>
-
-          <button className="botonConsulta">
-            Consultar
-          </button>
-        </div>
+        {/* Formulario para ingresar datos en tabla */}
+        <table className="form-table">
+          <tbody>
+            <tr>
+              <td><label>ID Usuario:</label></td>
+              <td>
+                <input
+                  type="text"
+                  value={usuarioId}
+                  onChange={(e) => setUsuarioId(e.target.value)}
+                  placeholder="Ingrese el ID del usuario"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label>Documento:</label></td>
+              <td>
+                <input
+                  type="text"
+                  value={documento}
+                  onChange={(e) => setDocumento(e.target.value)}
+                  placeholder="Ingrese el documento"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label>Tipo de Usuario:</label></td>
+              <td>
+                <div className="checkbox-container">
+                  <label className="checkbox-label">
+                    <input type="radio" name="usuarioTipo" /> Comprador
+                  </label>
+                  <label className="checkbox-label">
+                    <input type="radio" name="usuarioTipo" /> Vendedor
+                  </label>
+                  <label className="checkbox-label">
+                    <input type="radio" name="usuarioTipo" /> Repartidor
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="2" style={{ textAlign: "center" }}>
+                <button className="botonConsulta">Consultar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         {/* Tabla de métricas */}
-        <div className="table-container">
-          <h3>Métricas de Uso</h3>
-          <table className="metrics-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Métricas de Uso</th>
-                <th>Comportamiento de Usuario</th>
-                <th>Satisfacción del Cliente</th>
+        <h3>Métricas de Uso</h3>
+        <table className="metrics-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Métricas de Uso</th>
+              <th>Comportamiento de Usuario</th>
+              <th>Satisfacción del Cliente</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+
+                {/* Métricas de Uso */}
+                <td>
+                  <p>Número de pedidos: {item.pedidosRealizados}</p>
+                  <p>Frecuencia de uso: {item.frecuenciaUso}</p>
+                  <p>Horas pico: {item.horasPico}</p>
+                </td>
+
+                {/* Comportamiento de Usuario */}
+                <td>
+                  <p>Productos más comprados: {item.productosMasComprados}</p>
+                  <p>Zonas de entrega más frecuentes: {item.zonasFrecuentes}</p>
+                  <p>Rutas de navegación: {item.rutasNavegacion}</p>
+                </td>
+
+                {/* Satisfacción del Cliente */}
+                <td>
+                  <p>Reseñas: {item.reseñas}</p>
+                  <p>Calificación: {item.calificacion}</p>
+                  <p>Feedback recibido: {item.feedback}</p>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-
-                  {/* Métricas de Uso */}
-                  <td>
-                    <p>Número de pedidos: {item.pedidosRealizados}</p>
-                    <p>Frecuencia de uso: {item.frecuenciaUso}</p>
-                    <p>Horas pico: {item.horasPico}</p>
-                  </td>
-
-                  {/* Comportamiento de Usuario */}
-                  <td>
-                    <p>Productos más comprados: {item.productosMasComprados}</p>
-                    <p>Zonas de entrega más frecuentes: {item.zonasFrecuentes}</p>
-                    <p>Rutas de navegación: {item.rutasNavegacion}</p>
-                  </td>
-
-                  {/* Satisfacción del Cliente */}
-                  <td>
-                    <p>Reseñas: {item.reseñas}</p>
-                    <p>Calificación: {item.calificacion}</p>
-                    <p>Feedback recibido: {item.feedback}</p>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </main>
 
       {/* Footer */}

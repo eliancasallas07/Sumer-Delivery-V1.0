@@ -1,378 +1,75 @@
-/* Contenedor principal */
-
-/* Panel izquierdo - Botones de chat y formularios */
-.left-panel {
-  width: 100%;
-  max-width: 600px; 
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-  align-items: center; 
+.icono-llamada{
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
 }
 
-.chat-button {
-  padding: 1rem;
-  font-size: 1rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 80%; 
-  max-width: 250px;
-}
-
-.chat-button:hover {
-  background-color: #0e7a14;
-}
-
-.observaciones {
-  width: 80%; 
-  max-width: 400px;
-  padding: 1rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 1rem;
-  resize: none;
-}
-/*Estilo de boton de llamada */
-
-.chat-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px; 
-  padding: 10px 20px;
-  background-color: #4caf50; 
-  color: white; 
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.chat-button:hover {
-  background-color: #45a049; 
-}
-
-.icono-llamada {
-  width: 16px; 
-  height: 16px;
-}
-
-.calificacion {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  width: 80%;
-  max-width: 400px;
-  align-items: center;
-}
-
-.calificacion label {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.calificacion-input {
-  padding: 1rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 100%;
-}
-
-/* Estilo para el contenedor del mapa */
 .map-container {
-  height: 25rem; 
-  width: 100%; 
-  margin: 1.25rem; 
-  position: relative;
+  height: 400px; /* Altura del mapa */
+  width: 100%; /* Ancho del mapa */
+  margin: 30px;
 }
 
-/* Panel derecho - PIN de entrega, confirmación y deslizador */
-.right-panel {
-  width: 100%;
-  max-width: 600px; 
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
-  align-items: center; 
-}
-
-.pin-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 1rem;
-}
-
-.pin-number {
-  background-color: red;
-  padding: 0.5rem 1rem;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-}
-
-.confirmacion {
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-
-/* Contenedor del Deslizador */
-.slider-container {
-  width: 300px;
-  text-align: center;
-  position: relative;
-}
-
-/* Input de tipo range (oculto visualmente) */
-.slider-input {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0; 
-  z-index: 2; 
-  cursor: pointer;
-}
-
-/* Barra del deslizador */
-.slider-track {
-  width: 100%;
-  height: 20px; 
-  background-color: #e0e0e0;
-  border-radius: 10px; 
-  position: relative;
-  overflow: hidden; 
-}
-
-/* Relleno de la barra (verde) */
-.slider-fill {
-  width: 0; 
-  height: 100%;
-  background-color: #4caf50; 
-  border-radius: 10px; 
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: width 0.2s ease; 
-}
-
-/* Control deslizante (bola) */
-.slider-thumb {
-  width: 20px; 
-  height: 20px; 
-  background-color: #4caf50; 
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%); 
-  cursor: pointer;
-  transition: left 0.2s ease; 
-  z-index: 1; 
-}
-
-/* Texto del deslizador */
-.slider-text {
-  font-size: 14px;
-  color: #333; 
-  margin-top: 10px;
-}
-
-/* Relleno de la barra (verde) */
-.slider-fill {
-  width: 0; 
-  height: 100%;
-  background-color: #4caf50; 
-  border-radius: 10px; 
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: width 0.2s ease; 
-}
-
-/* Control deslizante circulo */
-.slider-thumb {
-  width: 20px; 
-  height: 20px; 
-  background-color: #4caf50; 
-  border-radius: 50%; 
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%); 
-  cursor: pointer;
-  transition: left 0.2s ease; 
-  z-index: 1; 
-}
-
-/* Texto del deslizador */
-.slider-text {
-  font-size: 14px;
-  color: #333; 
-  margin-top: 10px; 
-}
-
-/* Estilos para la tabla */
-.table-container {
-  margin-top: 20px;
-  overflow-x: auto;
-}
-
-.pedido-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-.pedido-table th {
-  background-color: #f2f2f2; /* Gris claro */
-  color: #000; /* Negro */
-  text-align: left;
-  padding: 10px;
-}
-
-.pedido-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-}
-
-.pedido-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.pedido-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-.pedido-table thead {
-  background-color: #e0e0e0; /* Contenedor gris claro para los títulos */
-  border-bottom: 2px solid #ccc;
-}
-
-.pedido-table thead th {
-  font-weight: bold;
-  padding: 15px;
-}
-
-.action-button {
-  background-color: #007bff; /* Azul */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.action-button:hover {
-  background-color: #0056b3; /* Azul más oscuro */
-}
-
-.action-button:active {
-  background-color: #003f7f; /* Azul aún más oscuro */
-}
-
-/* Diseño responsivo para mostrar la tabla en forma vertical */
-@media (max-width: 768px) {
-  .pedido-table {
-    border: 0;
+@media screen and (max-width: 768px) {
+  .geolocalizacion-table {
+    width: 100%; /* Asegurar que la tabla ocupe todo el ancho */
+    border-collapse: collapse;
   }
 
-  .pedido-table thead {
-    display: none; /* Ocultar encabezados en dispositivos móviles */
-  }
-
-  .pedido-table tr {
-    display: block;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
-
-  .pedido-table td {
+  .geolocalizacion-table tr {
     display: flex;
-    flex-direction: column; /* Mostrar los datos en forma vertical */
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ddd;
+    flex-direction: column; /* Organizar contenido verticalmente */
+    width: 100%; /* Asegurar que cada fila ocupe todo el ancho */
   }
 
-  .pedido-table td:last-child {
-    border-bottom: 0;
+  .geolocalizacion-table td {
+    display: block; /* Hacer que cada celda sea un bloque */
+    width: 87%; /* Asegurar que cada celda ocupe todo el ancho */
+    margin-bottom: 1rem; /* Espaciado entre celdas */
   }
 
-  .pedido-table td::before {
-    content: attr(data-label); /* Mostrar el encabezado como etiqueta */
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-  }
-}
-
-/* Estilos Responsivos */
-@media (max-width: 768px) {
   .left-panel,
-  .right-panel,
-  .center-panel {
-    width: 100%;
-    align-items: center;
+  .map-container,
+  .right-panel {
+    width: 100%; /* Asegurar que cada panel ocupe todo el ancho */
+    padding: 1rem; /* Agregar espaciado interno */
+    box-sizing: border-box; /* Incluir padding en el ancho total */
+  }
+
+  .map-container {
+    height: 300px; /* Reducir la altura del mapa en móviles */
+    margin: 1rem 0.65rem ;;
   }
 
   .chat-button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
+    width: 100%; /* Asegurar que los botones ocupen todo el ancho */
+    margin-bottom: 1rem; /* Espaciado entre botones */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Espaciado entre el ícono y el texto */
   }
 
   .observaciones {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
+    width: 100%; /* Asegurar que el textarea ocupe todo el ancho */
+    margin-bottom: 1rem; /* Espaciado inferior */
   }
 
-  .calificacion-input {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-  }
-
-  /*Estilos para el mapa*/
-
-  /* Estilos para pantallas más pequeñas */
-  @media (max-width: 768px) {
-    .map-container {
-      height: 20rem; 
-    }
-  }
-
-  /* Estilos para pantallas aún más pequeñas celulares */
-  @media (max-width: 480px) {
-    .map-container {
-      height: 18rem; 
-    }
-  }
-
-  /* Estilos para pantallas grandes pc */
-  @media (min-width: 1200px) {
-    .map-container {
-      height: 30rem; 
-    }
-  }
-  .slider {
-    width: 90%;
+  .calificacion {
+    margin-bottom: 1rem; /* Espaciado entre calificaciones */
   }
 
   .slider-container {
-    width: 90%; 
+    margin-top: 1rem; /* Espaciado superior */
+  }
+
+  .pin-container {
+    text-align: center; /* Centrar el texto del PIN */
+    margin-bottom: 1rem; /* Espaciado inferior */
+  }
+
+  .confirmacion {
+    text-align: center; /* Centrar el texto de confirmación */
+    margin-bottom: 1rem; /* Espaciado inferior */
   }
 }

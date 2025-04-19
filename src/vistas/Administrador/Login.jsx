@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";  // Importar hook de Auth0
 import "../../estilos/Administrador/Login.css";
+import '../../Global.css'; // Los estilos
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -20,24 +21,39 @@ const Login = () => {
 
     // Lógica de autenticación local 
     if (!isAuthenticated) {
+      console.log("Estado de autenticación:", isAuthenticated);
+      console.log("Credenciales ingresadas:", { username, password, role });
+
       if (
         username === "elian casallas" &&
         password === "123456" &&
         role === "administrador"
-      ) {
-        console.log("Login exitoso");
-        navigate("/inicio");
+      ) 
+      {
+        console.log("Login exitoso como Administrador");
+        navigate("/Inicio");
       } else if (
         username === "comprador1" &&
         password === "456789" &&
         role === "comprador"
-      ) {
-        console.log("Login exitoso");
-        navigate("/inicioComprador");
+      ) 
+      {
+        console.log("Login exitoso como Comprador");
+        navigate("/InicioComprador");
+      } else if (
+        username === "vendedor1" &&
+        password === "789123" &&
+        role === "vendedor"
+      ) 
+      {
+        console.log("Login exitoso como Vendedor");
+        navigate("/InicioVendedor");
       } else {
-        console.log("Datos incorrectos");
+        console.log("Error: Datos incorrectos");
         alert("Usuario, contraseña o rol incorrectos.");
       }
+    } else {
+      console.log("Usuario ya autenticado");
     }
   };
 
