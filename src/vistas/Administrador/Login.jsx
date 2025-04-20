@@ -48,6 +48,14 @@ const Login = () => {
       {
         console.log("Login exitoso como Vendedor");
         navigate("/InicioVendedor");
+      } else if (
+        username === "repartidor1" &&
+        password === "321654" &&
+        role === "repartidor"
+      ) 
+      {
+        console.log("Login exitoso como Repartidor");
+        navigate("/InicioRepartidor");
       } else {
         console.log("Error: Datos incorrectos");
         alert("Usuario, contraseña o rol incorrectos.");

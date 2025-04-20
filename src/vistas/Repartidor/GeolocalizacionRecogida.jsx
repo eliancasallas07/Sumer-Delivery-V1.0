@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../estilos/Comprador/GeolocalizacionComprador.css";
-import '../../Global.css'; // Los estilos
-
-// Importación de react-leaflet y estilos de Leaflet osea el mapa dentro de este usuario comprador 
+import "../../estilos/Repartidor/GeolocalizacionRecogida.css";
+import "../../Global.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const GeolocalizacionComprador = () => {
+const GeolocalizacionRecogida = () => {
   const [sliderValue, setSliderValue] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [userPosition, setUserPosition] = useState([4.711, -74.0721]); // Coordenadas de Bogotá, Colombia
+  const [pin, setPin] = useState(""); // Estado para el PIN
   const navigate = useNavigate();
 
-  // Obtener la ubicación del usuario en tiempo real
   useEffect(() => {
     if (navigator.geolocation) {
-      // Usar watchPosition para obtener la ubicación en tiempo real
       const geoWatcher = navigator.geolocation.watchPosition(
         (position) => {
-          // Actualizar la posición del usuario en tiempo real
           setUserPosition([position.coords.latitude, position.coords.longitude]);
         },
         (error) => {
           console.error("Error al obtener la geolocalización.", error);
         },
         {
-          enableHighAccuracy: true, 
-          timeout: 5000,            
-          maximumAge: 0             
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
         }
       );
 
-      // Limpiar el watcher cuando el componente se desmonte
       return () => navigator.geolocation.clearWatch(geoWatcher);
     } else {
       console.log("La geolocalización no está soportada por este navegador.");
@@ -40,52 +35,20 @@ const GeolocalizacionComprador = () => {
   }, []);
 
   const handleSliderChange = (e) => {
-    setSliderValue(e.target.value);
+    if (pin.trim() !== "") {
+      setSliderValue(e.target.value);
+      if (e.target.value === "100") {
+        alert("Recogida confirmada. Redirigiendo a la entrega...");
+        navigate("/GeolocalizacionEntrega");
+      }
+    } else {
+      alert("Por favor, ingresa el PIN de recogida antes de confirmar.");
+    }
   };
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
   };
-
-  const handleCall = (type) => {
-    let phoneNumber = "";
-
-    switch (type) {
-      case "Repartidor":
-        phoneNumber = "+1234567890";
-        break;
-      case "Restaurante":
-        phoneNumber = "+0987654321";
-        break;
-      case "Soporte":
-        phoneNumber = "+1112223333";
-        break;
-      default:
-        phoneNumber = "+0000000000";
-    }
-
-    window.location.href = `tel:${phoneNumber}`;
-  };  
-   
-   // Logica para redireccion de los botones de chat con repartidor , restaurante y soporte
-   
-  const handleChatRedirect = (type) => {
-    switch (type) {
-      case "Repartidor":
-        navigate("/chat-repartidor");
-        break;
-      case "Restaurante":
-        navigate("/chat-restaurante");
-        break;
-      case "Soporte":
-        navigate("/chat-soporte");
-        break;
-      default:
-        break;
-    }
-  };
-
- 
 
   return (
     <div>
@@ -98,10 +61,10 @@ const GeolocalizacionComprador = () => {
           />
         </div>
         <div className="home-header-left">
-          <h1>Sumer Delivery Usuario Comprador</h1>
+          <h1>Sumer Delivery Usuario Repartidor</h1>
         </div>
         <div className="header-buttons">
-          <button className="button-inicio" onClick={() => navigate("/InicioComprador")}>
+          <button className="button-inicio" onClick={() => navigate("/InicioRepartidor")}>
             <img
               src={require("../../activos/boton-inicio.png")}
               alt="Inicio"
@@ -144,25 +107,26 @@ const GeolocalizacionComprador = () => {
       </header>
 
       <main className="main geolocalizacion-main">
+      <h2>Geolocalizacion Recogida</h2>
         <table className="geolocalizacion-table">
           <tbody>
             <tr>
               <td className="left-panel">
                 <button
                   className="chat-button"
-                  onClick={() => navigate("/ChatRepartidor")}
+                  onClick={() => navigate("/ChatComprador")}
                 >
                   <img
                     src={require("../../activos/icono-llamada.png")}
                     alt="Llamar"
                     className="icono-llamada"
                   />{" "}
-                  Chat con Repartidor
+                  Chat con Comprador
                 </button>
 
                 <button
                   className="chat-button"
-                  onClick={() => navigate("/ChatRestaurante")}
+                  onClick={() => navigate("/ChatRestauranteRepartidor")}
                 >
                   <img
                     src={require("../../activos/icono-llamada.png")}
@@ -174,7 +138,7 @@ const GeolocalizacionComprador = () => {
 
                 <button
                   className="chat-button"
-                  onClick={() => navigate("/ChatSoporte")}
+                  onClick={() => navigate("/ChatSoporteRepartidor")}
                 >
                   <img
                     src={require("../../activos/icono-llamada.png")}
@@ -189,15 +153,6 @@ const GeolocalizacionComprador = () => {
                 ></textarea>
                 <div className="calificacion">
                   <label>Califica Restaurante (1 a 10):</label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="10"
-                    className="calificacion-input"
-                  />
-                </div>
-                <div className="calificacion">
-                  <label>Califica Repartidor (1 a 10):</label>
                   <input
                     type="number"
                     min="1"
@@ -222,13 +177,20 @@ const GeolocalizacionComprador = () => {
               </td>
               <td className="right-panel">
                 <div className="pin-container">
-                  <span className="pin-number" style={{ backgroundColor: "red" }}>
-                    1235
-                  </span>
-                  <span>PIN de Entrega</span>
+                  <label htmlFor="pin-recogida">Ingresar PIN de Recogida:</label>
+                  <input
+                    type="text"
+                    id="pin-recogida"
+                    name="pin-recogida"
+                    placeholder="Ingresa el PIN"
+                    className="pin-input"
+                    value={pin}
+                    onChange={(e) => setPin(e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="confirmacion">
-                  <p>Confirmación de entrega en buenas condiciones (TyC)</p>
+                  <p>Confirmación de recogida en buenas condiciones (TyC)</p>
                 </div>
                 <div className="slider-container">
                   <input
@@ -238,6 +200,7 @@ const GeolocalizacionComprador = () => {
                     value={sliderValue}
                     onChange={handleSliderChange}
                     className="slider-input"
+                    disabled={pin.trim() === ""}
                   />
                   <div className="slider-track">
                     <div
@@ -251,7 +214,7 @@ const GeolocalizacionComprador = () => {
                   </div>
                   <div className="slider-text">
                     {sliderValue === 100
-                      ? "Deslizar para confirmar entrega"
+                      ? "Deslizar para confirmar recogida"
                       : "Desliza para confirmar"}
                   </div>
                 </div>
@@ -261,7 +224,6 @@ const GeolocalizacionComprador = () => {
         </table>
       </main>
 
-      {/* Footer */}
       <footer className="footer">
         <p>© 2025 Sumer Delivery - Todos los derechos reservados</p>
         <div className="social-links">
@@ -326,5 +288,4 @@ const GeolocalizacionComprador = () => {
   );
 };
 
-export default GeolocalizacionComprador;
-
+export default GeolocalizacionRecogida;

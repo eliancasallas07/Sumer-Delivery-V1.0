@@ -43,14 +43,28 @@ import NotificacionPedidoVendedor from './vistas/Vendedor/NotificacionPedidoVend
 import NotificacionesVendedor from './vistas/Vendedor/NotificacionesVendedor.jsx';
 import CalificacionEvaluacionVendedor from './vistas/Vendedor/CalificacionEvaluacionVendedor.jsx';
 
-
+// Rutas de Repartidor
+import InicioRepartidor from './vistas/Repartidor/InicioRepartidor.jsx';
+import GestionPedidosRepartidor from './vistas/Repartidor/GestionPedidosRepartidor.jsx';
+import VerPedidosRepartidor from './vistas/Repartidor/VerPedidosRepartidor.jsx';
+import DetallesPedidosRepartidor from './vistas/Repartidor/DetallesPedidosRepartidor.jsx';
+import NotificacionPedidoRepartidor from './vistas/Repartidor/NotificacionPedidoRepartidor.jsx';
+import GeolocalizacionRecogida from './vistas/Repartidor/GeolocalizacionRecogida.jsx';
+import GeolocalizacionEntrega from './vistas/Repartidor/GeolocalizacionEntrega.jsx';
+import ChatComprador from './vistas/Repartidor/ChatComprador.jsx';
+import ChatRestauranteRepartidor from './vistas/Repartidor/ChatRestauranteRepartidor.jsx';
+import ChatSoporteRepartidor from './vistas/Repartidor/ChatSoporteRepartidor.jsx';
+import NotificacionesRepartidor from './vistas/Repartidor/NotificacionesRepartidor.jsx';
+import CalificacionEvaluacionRepartidor from './vistas/Repartidor/CalificacionEvaluacionRepartidor.jsx';
+import GestionVehiculos from './vistas/Repartidor/GestionVehiculos.jsx';
 
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Login />} />  {/* Ruta para Login */}
+        {/* Ruta para Login */}
+        <Route path="/" element={<Login />} />  
 
          {/* Rutas para Administrador */}
         <Route path="/inicio" element={<Inicio />} />  
@@ -91,12 +105,22 @@ const App = () => {
         <Route path="/NotificacionesVendedor" element={<NotificacionesVendedor />} />
         <Route path="/CalificacionEvaluacionVendedor" element={<CalificacionEvaluacionVendedor />} />
 
+        {/* Rutas para Repartidor*/}
+        <Route path="/InicioRepartidor" element={<InicioRepartidor />} />
+        <Route path="/GestionPedidosRepartidor" element={<GestionPedidosRepartidor/>} />
+        <Route path="/VerPedidosRepartidor" element={<VerPedidosRepartidor/>} />
+        <Route path="/DetallesPedidosRepartidor" element={<DetallesPedidosRepartidor/>} />
+        <Route path="/NotificacionPedidoRepartidor" element={<NotificacionPedidoRepartidor/>} />
+        <Route path="/GeolocalizacionRecogida" element={<GeolocalizacionRecogida/>} />
+        <Route path="/GeolocalizacionEntrega" element={<GeolocalizacionEntrega/>} />
+        <Route path="/ChatComprador" element={<ChatComprador/>} />
+        <Route path="/ChatRestauranteRepartidor" element={<ChatRestauranteRepartidor/>} />
+        <Route path="/ChatSoporteRepartidor" element={<ChatSoporteRepartidor/>} />
+        <Route path="/NotificacionesRepartidor" element={<NotificacionesRepartidor/>} />
+        <Route path="/CalificacionEvaluacionRepartidor" element={<CalificacionEvaluacionRepartidor/>} />
+        <Route path="/GestionVehiculos" element={<GestionVehiculos/>} />
+
        
-
-
-        
-
-
 
       </Routes>
     </div>
