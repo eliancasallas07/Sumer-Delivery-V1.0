@@ -35,14 +35,12 @@ const GeolocalizacionRecogida = () => {
   }, []);
 
   const handleSliderChange = (e) => {
-    if (pin.trim() !== "") {
-      setSliderValue(e.target.value);
-      if (e.target.value === "100") {
-        alert("Recogida confirmada. Redirigiendo a la entrega...");
-        navigate("/GeolocalizacionEntrega");
-      }
-    } else {
-      alert("Por favor, ingresa el PIN de recogida antes de confirmar.");
+    const value = e.target.value;
+    setSliderValue(value);
+    // Solo permite redirigir si el PIN no está vacío y el slider llega a 100
+    if (pin.trim() !== "" && value === "100") {
+      alert("Recogida confirmada. Redirigiendo a la entrega...");
+      navigate("/GeolocalizacionEntrega");
     }
   };
 
@@ -213,7 +211,7 @@ const GeolocalizacionRecogida = () => {
                     ></div>
                   </div>
                   <div className="slider-text">
-                    {sliderValue === 100
+                    {sliderValue === "100"
                       ? "Deslizar para confirmar recogida"
                       : "Desliza para confirmar"}
                   </div>

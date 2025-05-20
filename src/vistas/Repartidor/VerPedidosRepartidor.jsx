@@ -1,48 +1,37 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Repartidor/VerPedidosRepartidor.css'; // Los estilos
-import '../../Global.css'; // Los estilos
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../../estilos/Repartidor/VerPedidosRepartidor.css';
+import '../../Global.css';
 
 const VerPedidosRepartidor = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const navigate = useNavigate();  // Inicializar useNavigate
+  const [pedidos, setPedidos] = useState([]);
+  const navigate = useNavigate();
 
-  const pedidos = [
-    {
-      numero: "301",
-      fecha: "2023-10-11",
-      hora: "08:00 AM",
-      estado: "Entregado",
-      total: "$150,000",
-    },
-    {
-      numero: "302",
-      fecha: "2023-10-12",
-      hora: "12:30 PM",
-      estado: "En proceso",
-      total: "$90,000",
-    },
-    {
-      numero: "303",
-      fecha: "2023-10-13",
-      hora: "06:15 PM",
-      estado: "Cancelado",
-      total: "$0",
-    },
-    {
-      numero: "304",
-      fecha: "2023-10-14",
-      hora: "10:00 AM",
-      estado: "Nuevo Servicio",
-      total: "$200,000",
-    },
-  ];
+  useEffect(() => {
+    // Obtener pedidos confirmados para el repartidor desde el backend
+    fetch("http://localhost:3001/api/pedidos?estado=confirmado")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPedidos(data);
+        } else {
+          setPedidos([]);
+        }
+      })
+      .catch(() => setPedidos([]));
+  }, []);
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
   };
 
-  const handleNotificacionPedidoRepartidorClick = () => {
+  const handleNotificacionPedidoRepartidorClick = (pedidoId) => {
+    // Puedes guardar el pedido en localStorage si quieres mostrar detalles en la notificación
+    const pedidoSeleccionado = pedidos.find(p => p.id === pedidoId);
+    if (pedidoSeleccionado) {
+      localStorage.setItem("pedidoRepartidor", JSON.stringify(pedidoSeleccionado));
+    }
     navigate('/NotificacionPedidoRepartidor');
   };
 
@@ -97,13 +86,13 @@ const VerPedidosRepartidor = () => {
               </tr>
             </thead>
             <tbody>
-              {pedidos.map((pedido, index) => (
-                <tr key={index}>
-                  <td data-label="Número de Pedido">{pedido.numero}</td>
+              {pedidos.map((pedido) => (
+                <tr key={pedido.id}>
+                  <td data-label="Número de Pedido">{pedido.id}</td>
                   <td data-label="Fecha">{pedido.fecha}</td>
                   <td data-label="Hora">{pedido.hora}</td>
                   <td data-label="Estado">
-                    {pedido.estado === "Nuevo Servicio" ? (
+                    {pedido.estado === "confirmado" ? (
                       <img
                         src={require('../../activos/logo-nuevoServicio.png')}
                         alt={pedido.estado}
@@ -118,12 +107,12 @@ const VerPedidosRepartidor = () => {
                     )}
                     {pedido.estado}
                   </td>
-                  <td data-label="Total">{pedido.total}</td>
+                  <td data-label="Total">${pedido.total}</td>
                   <td data-label="Acción">
-                    {pedido.estado === "Nuevo Servicio" && (
+                    {pedido.estado === "confirmado" && (
                       <button
                         className="confirmar-btn"
-                        onClick={handleNotificacionPedidoRepartidorClick}
+                        onClick={() => handleNotificacionPedidoRepartidorClick(pedido.id)}
                       >
                         Confirmar
                       </button>

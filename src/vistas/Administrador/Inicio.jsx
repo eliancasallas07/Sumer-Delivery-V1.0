@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // Importar useNavigate
 import '../../estilos/Administrador/Inicio.css'; // Los estilos
 import '../../Global.css'; // Los estilos
 
 
 const Inicio = () => {
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(navigator.onLine);
   const navigate = useNavigate();  // Inicializar useNavigate
 
+  // Detectar cambios de conexión/desconexión
+  useEffect(() => {
+    const handleOnline = () => setIsConnected(true);
+    const handleOffline = () => setIsConnected(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   const handleSwitchToggle = () => {
-    setIsConnected(!isConnected);
+    // Permite al usuario forzar el estado, pero si no hay conexión real, se mantiene en desconectado
+    if (navigator.onLine) {
+      setIsConnected(!isConnected);
+    }
   };
 
   const handleGestionUsuariosClick = () => {
@@ -63,7 +78,7 @@ const Inicio = () => {
       </header>
 
       {/* Main */}
-      <main className="main">
+      <main className="main" style={{ filter: isConnected ? "none" : "grayscale(1)", pointerEvents: isConnected ? "auto" : "none", opacity: isConnected ? 1 : 0.5 }}>
         <h2>Inicio</h2>
 
         {/* Botones de gestión de usuarios, configuración y gestión de notificaciones, monitoreo y reportes */}
@@ -85,7 +100,22 @@ const Inicio = () => {
           </button>
         </div>
       </main>
-
+      {!isConnected && (
+        <div style={{
+          position: "fixed",
+          top: 80,
+          left: 0,
+          width: "100%",
+          background: "#ff9800",
+          color: "#fff",
+          textAlign: "center",
+          padding: "10px",
+          zIndex: 1000,
+          fontWeight: "bold"
+        }}>
+          Sin conexión a Internet. Por favor, verifica tu red.
+        </div>
+      )}
       {/* Footer */}
       <footer className="footer">
         <p>© 2025 Sumer Delivery - Todos los derechos reservados</p>

@@ -1,74 +1,121 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";  // Importar hook de Auth0
+
+import { useAuth0 } from "@auth0/auth0-react";
+
 import "../../estilos/Administrador/Login.css";
-import '../../Global.css'; // Los estilos
+
+import "../../Global.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
+
   const [role, setRole] = useState("administrador");
+
   const navigate = useNavigate();
 
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0(); // Funciones de Auth0
+  const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0();
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
+
   const handlePasswordChange = (e) => setPassword(e.target.value);
+
   const handleRoleChange = (e) => setRole(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Lógica de autenticación local 
-    if (!isAuthenticated) {
-      console.log("Estado de autenticación:", isAuthenticated);
-      console.log("Credenciales ingresadas:", { username, password, role });
-
-      if (
-        username === "elian casallas" &&
-        password === "123456" &&
-        role === "administrador"
-      ) 
-      {
-        console.log("Login exitoso como Administrador");
-        navigate("/Inicio");
-      } else if (
-        username === "comprador1" &&
-        password === "456789" &&
-        role === "comprador"
-      ) 
-      {
-        console.log("Login exitoso como Comprador");
-        navigate("/InicioComprador");
-      } else if (
-        username === "vendedor1" &&
-        password === "789123" &&
-        role === "vendedor"
-      ) 
-      {
-        console.log("Login exitoso como Vendedor");
-        navigate("/InicioVendedor");
-      } else if (
-        username === "repartidor1" &&
-        password === "321654" &&
-        role === "repartidor"
-      ) 
-      {
-        console.log("Login exitoso como Repartidor");
-        navigate("/InicioRepartidor");
-      } else {
-        console.log("Error: Datos incorrectos");
-        alert("Usuario, contraseña o rol incorrectos.");
-      }
-    } else {
-      console.log("Usuario ya autenticado");
+    // Acceso directo para adminelian/admin123
+    if (username === "adminelian" && password === "admin123") {
+      navigate("/inicio");
+      return;
     }
+    // Acceso directo para comprador de prueba
+    if (username === "comprador1" && password === "comprador123") {
+      navigate("/iniciocomprador");
+      return;
+    }
+    // Acceso directo para vendedor de prueba
+    if (username === "vendedor1" && password === "vendedor123") {
+      navigate("/iniciovendedor");
+      return;
+    }
+    // Acceso directo para repartidor de prueba
+    if (username === "repartidor1" && password === "repartidor123") {
+      navigate("/iniciorepartidor");
+      return;
+    }
+
+    let endpoint = "";
+
+    if (role === "administrador") {
+      endpoint = "login-admin";
+    } else if (role === "comprador") {
+      endpoint = "login-compradores";
+    } else if (role === "vendedor") {
+      endpoint = "login-vendedor";
+    } else if (role === "repartidor") {
+      endpoint = "login-repartidor";
+    }
+
+    fetch(`http://localhost:3000/api/${endpoint}`, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        usuario: username,
+
+        contrasena: password,
+      }),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Error al autenticar");
+        }
+
+        console.log("✅ Login local exitoso:", data);
+
+        // Redirigir según el rol
+
+        if (data.rol === "administrador") {
+          navigate("/inicio");
+        } else if (data.rol === "comprador") {
+          navigate("/iniciocomprador");
+        } else if (data.rol === "vendedor") {
+          navigate("/iniciovendedor");
+        } else if (data.rol === "repartidor") {
+          navigate("/iniciorepartidor");
+        } else {
+          alert("Rol no reconocido.");
+        }
+      })
+
+      .catch((error) => {
+        console.error("❌ Error en login:", error.message);
+
+        alert("Error al autenticar: " + error.message);
+      });
   };
 
-  // Redirigir si ya está autenticado con Auth0
-  if (isAuthenticated) {
-    navigate("/inicio");
-  }
+  // Redirigir solo si viene de Auth0 (evitamos conflictos con login local)
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && user) {
+      console.log("🔐 Usuario autenticado con Auth0:", user);
+
+      navigate("/inicio"); // O según el rol que tengas en Auth0
+    }
+  }, [isAuthenticated, isLoading, user, navigate]);
+
+  // Si quieres usar el botón de login con Auth0
 
   const handleLoginWithAuth0 = () => {
     loginWithRedirect(); // Redirige al login de Auth0
@@ -140,7 +187,7 @@ const Login = () => {
         ) : (
           <div className="welcome-message">
             <h3>Bienvenido, {user.name}!</h3>
-            <button onClick={() => logout({ returnTo: window.location.origin })}>
+            <button onClick={() => ({ returnTo: window.location.origin })}>
               Cerrar sesión
             </button>
           </div>

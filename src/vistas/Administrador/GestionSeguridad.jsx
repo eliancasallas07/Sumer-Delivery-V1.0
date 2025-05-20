@@ -11,6 +11,8 @@ const GestionSeguridad = () => {
   const [datosSeguridad, setDatosSeguridad] = useState([]);
   const [loading, setLoading] = useState(false);
 
+ 
+
   const navigate = useNavigate();  // Hook de navegación
 
   const handleSwitchToggle = () => {

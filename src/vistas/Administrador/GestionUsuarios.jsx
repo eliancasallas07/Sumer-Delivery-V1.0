@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Necesitamos este hook para la navegación
-import "../../estilos/Administrador/GestionUsuarios.css"; // Los estilos
-import '../../Global.css'; // Los estilos
+import { useNavigate } from "react-router-dom";
+import "../../estilos/Administrador/GestionUsuarios.css";
+import "../../Global.css";
+import CryptoJS from "crypto-js";
 
 const GestionUsuarios = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [formData, setFormData] = useState({
-    
     id: "",
     nombres: "",
     apellidos: "",
@@ -21,9 +21,11 @@ const GestionUsuarios = () => {
     tienda: "",
     documentosVehiculo: null,
     correo: "",
+    usuario: "",
+    contrasena: "",
   });
-  
-  const navigate = useNavigate(); // Definir el hook navigate
+
+  const navigate = useNavigate();
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
@@ -45,24 +47,128 @@ const GestionUsuarios = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar el formulario
-    console.log("Formulario enviado", formData);
+
+    const { rol } = formData;
+
+    // Validar rol permitido
+    if (!["comprador", "vendedor", "repartidor"].includes(rol)) {
+      alert(
+        "⚠️ Solo se permite registrar compradores, vendedores o repartidores."
+      );
+      return;
+    }
+
+    // Validar campos comunes
+    const camposObligatorios = [
+      "nombres",
+      "apellidos",
+      "telefono",
+      "correo",
+      "direccion",
+      "ciudad",
+      "usuario",
+      "contrasena",
+    ];
+
+    for (let campo of camposObligatorios) {
+      if (!formData[campo]) {
+        alert(`⚠️ El campo "${campo}" es obligatorio.`);
+        return;
+      }
+    }
+
+    // Crear objeto base
+    const hashedPassword = CryptoJS.SHA256(formData.contrasena).toString();
+
+    const nuevoUsuario = {
+      nombre: formData.nombres,
+      apellidos: formData.apellidos,
+      telefono: formData.telefono,
+      correo_electronico: formData.correo,
+      direccion: formData.direccion,
+      ciudad_residencia: formData.ciudad,
+      usuario: formData.usuario,
+      contrasena: formData.contrasena,
+    };
+
+    if (rol === "comprador") {
+      nuevoUsuario.calificacion = parseInt(formData.calificacion, 10);
+      nuevoUsuario.medio_pago = formData.medioPago;
+    } else if (rol === "vendedor") {
+      if (!formData.tienda) {
+        alert("⚠️ El nombre de la tienda es obligatorio.");
+        return;
+      }
+      nuevoUsuario.nombre_tienda = formData.tienda;
+      nuevoUsuario.calificacion = parseInt(formData.calificacion, 10);
+      nuevoUsuario.medio_pago = formData.medioPago;
+    } else if (rol === "repartidor") {
+      if (!formData.documentosVehiculo) {
+        alert("⚠️ Los documentos del vehículo son obligatorios.");
+        return;
+      }
+      nuevoUsuario.documentos_vehiculo = formData.documentosVehiculo;
+    }
+
+    const endpoint = `http://localhost:3001/api/${
+      rol === "vendedor" ? "vendedores" : rol + "s"
+    }`;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevoUsuario),
+      });
+
+      const text = await response.text();
+      console.log("📦 Respuesta cruda del servidor:", text);
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (error) {
+        console.error("❌ Error al convertir JSON:", error);
+        alert("⚠️ Respuesta inválida del servidor");
+        return;
+      }
+
+      if (response.ok) {
+        alert(`✅ ${rol} registrado con éxito`);
+        console.log("🔄 Respuesta del servidor:", data);
+      } else {
+        // Mostrar un mensaje de error más descriptivo al usuario
+        let errorMessage = `❌ Error al registrar ${rol}: `;
+        if (data && data.error) {
+          errorMessage += data.error; // Usa el mensaje de error del servidor
+        } else {
+          errorMessage +=
+            "Error desconocido, verifique la consola para más detalles.";
+        }
+        alert(errorMessage);
+        console.error("❌ Detalle del error:", data);
+      }
+    } catch (error) {
+      console.error("🚫 Error al conectar con el servidor:", error);
+      alert("🚫 No se pudo conectar con el servidor");
+    }
   };
 
-   // Funciones para manejar la navegación de los botones
-   const handleEditarUsuariosClick = () => {
+  // Funciones para manejar la navegación de los botones
+  const handleEditarUsuariosClick = () => {
     console.log("Redirigiendo a /editar-usuarios");
-    navigate('/editar-usuarios'); // Redirige a la página de editar usuarios
+    navigate("/editar-usuarios");
   };
 
   const handleEstadoUsuariosClick = () => {
     console.log("Redirigiendo a /estado-usuarios");
-    navigate('/estado-usuarios'); // Redirige a la página de estado de usuarios
+    navigate("/estado-usuarios");
   };
-
- 
 
   return (
     <div>
@@ -149,7 +255,9 @@ const GestionUsuarios = () => {
           <table className="form-table">
             <tbody>
               <tr>
-                <td><label htmlFor="id">ID:</label></td>
+                <td>
+                  <label htmlFor="id">ID:</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -162,7 +270,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="nombres">Nombres:</label></td>
+                <td>
+                  <label htmlFor="nombres">Nombres:</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -175,7 +285,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="apellidos">Apellidos:</label></td>
+                <td>
+                  <label htmlFor="apellidos">Apellidos:</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -188,7 +300,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="documento">Documento (C.C):</label></td>
+                <td>
+                  <label htmlFor="documento">Documento (C.C):</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -201,7 +315,11 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="fotoDocumento">Foto de Documento (PDF):</label></td>
+                <td>
+                  <label htmlFor="fotoDocumento">
+                    Foto de Documento (PDF):
+                  </label>
+                </td>
                 <td>
                   <input
                     type="file"
@@ -213,7 +331,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="direccion">Dirección de Residencia:</label></td>
+                <td>
+                  <label htmlFor="direccion">Dirección de Residencia:</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -226,7 +346,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="ciudad">Ciudad de Residencia:</label></td>
+                <td>
+                  <label htmlFor="ciudad">Ciudad de Residencia:</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -239,7 +361,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="medioPago">Medio de Pago:</label></td>
+                <td>
+                  <label htmlFor="medioPago">Medio de Pago:</label>
+                </td>
                 <td>
                   <select
                     id="medioPago"
@@ -255,7 +379,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="calificacion">Calificación (1-10):</label></td>
+                <td>
+                  <label htmlFor="calificacion">Calificación (1-10):</label>
+                </td>
                 <td>
                   <input
                     type="number"
@@ -270,7 +396,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="rol">Rol:</label></td>
+                <td>
+                  <label htmlFor="rol">Rol:</label>
+                </td>
                 <td>
                   <select
                     id="rol"
@@ -287,7 +415,9 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="telefono">Teléfono:</label></td>
+                <td>
+                  <label htmlFor="telefono">Teléfono:</label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -300,7 +430,11 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="tienda">Nombre de la Tienda (si aplica):</label></td>
+                <td>
+                  <label htmlFor="tienda">
+                    Nombre de la Tienda (si aplica):
+                  </label>
+                </td>
                 <td>
                   <input
                     type="text"
@@ -312,7 +446,11 @@ const GestionUsuarios = () => {
                 </td>
               </tr>
               <tr>
-                <td><label htmlFor="documentosVehiculo">Documentos del Vehículo (PDF, si aplica):</label></td>
+                <td>
+                  <label htmlFor="documentosVehiculo">
+                    Documentos del Vehículo (PDF, si aplica):
+                  </label>
+                </td>
                 <td>
                   <input
                     type="file"
@@ -323,8 +461,12 @@ const GestionUsuarios = () => {
                   />
                 </td>
               </tr>
+
+              {/* CORREO Y NOMBRE DE USUARIO EN FILAS SEPARADAS */}
               <tr>
-                <td><label htmlFor="correo">Correo Electrónico:</label></td>
+                <td>
+                  <label htmlFor="correo">Correo Electrónico:</label>
+                </td>
                 <td>
                   <input
                     type="email"
@@ -336,14 +478,44 @@ const GestionUsuarios = () => {
                   />
                 </td>
               </tr>
+              <tr>
+                <td>
+                  <label htmlFor="usuario">Nombre de Usuario:</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="usuario"
+                    name="usuario"
+                    value={formData.usuario}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label htmlFor="contrasena">Contraseña:</label>
+                </td>
+                <td>
+                  <input
+                    type="password"
+                    id="contrasena"
+                    name="contrasena"
+                    value={formData.contrasena}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </td>
+              </tr>
             </tbody>
           </table>
 
           {/* Botones de Aplicar Cambios y Cancelar */}
           <div className="form-actions">
             <label>
-              <input type="checkbox"/> Acepto los términos y
-              condiciones
+              <input type="checkbox" /> Acepto los términos y condiciones
             </label>
             <div className="action-buttons">
               <button type="submit" className="apply-btn">

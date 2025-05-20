@@ -8,12 +8,14 @@ const GestionTiendas = () => {
   const [usuarioId, setUsuarioId] = useState("");
   const [documento, setDocumento] = useState("");
   const [usuarioTipo, setUsuarioTipo] = useState("");
-  const [loading, setLoading] = useState(false);
   const [formularioVisible, setFormularioVisible] = useState(null); // Cambié el estado a null para manejar ambos formularios
   const [datosPedidos, setDatosPedidos] = useState([]);
   const [datosInventario, setDatosInventario] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [datosCompradores, setDatosCompradores] = useState([]);
   const [datosHorario, setDatosHorario] = useState([]);
+
+  ;
 
   const navigate = useNavigate(); // Inicializar useNavigate
 

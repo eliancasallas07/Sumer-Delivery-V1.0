@@ -341,6 +341,42 @@ const RealizarPedido = () => {
     setIsConnected((prevState) => !prevState);
   };
 
+  // Enviar pedido al backend
+  const enviarPedido = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/pedidos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productos: cart,
+          subtotal: subtotal,
+        }),
+      });
+
+      const text = await response.text();
+      let data = {};
+      try {
+        data = JSON.parse(text);
+      } catch (e) {}
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || text || "Error al enviar el pedido");
+      }
+      navigate("/NotificacionPedidoComprador");
+    } catch (error) {
+      alert("No se pudo enviar el pedido: " + error.message);
+    }
+  };
+
+  // Botón de Confirmar pedido SOLO navega al formulario y guarda carrito/subtotal
+  const handleConfirmarPedido = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("subtotal", subtotal);
+    navigate("/NotificacionPedidoComprador");
+  };
+
   // Variables de categoría seleccionada
   const category = categories[selectedCategoryIndex];
 
@@ -533,10 +569,7 @@ const RealizarPedido = () => {
 
                 {/* Botón de Confirmar pedido */}
                 <button
-                  onClick={() => {
-                    handleNotificacionPedidoCompradorClick(); // Llamada a tu función
-                    navigate("/NotificacionPedidoComprador"); // Navegación a la ruta
-                  }}
+                  onClick={handleConfirmarPedido}
                 >
                   Confirmar Pedido
                 </button>

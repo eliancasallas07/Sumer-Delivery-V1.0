@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Repartidor/NotificacionPedidoRepartidor.css'; // Los estilos
-import '../../Global.css'; // Los estilos
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../../estilos/Repartidor/NotificacionPedidoRepartidor.css';
+import '../../Global.css';
 
 const NotificacionPedidoRepartidor = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const navigate = useNavigate();  // Inicializar useNavigate
+  const [pedido, setPedido] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Recupera el pedido seleccionado para el repartidor desde localStorage
+    const pedidoRepartidor = localStorage.getItem("pedidoRepartidor");
+    if (pedidoRepartidor) {
+      setPedido(JSON.parse(pedidoRepartidor));
+    }
+  }, []);
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
   };
 
+  if (!pedido) {
+    return (
+      <div>
+        <h2>No hay pedido seleccionado para mostrar.</h2>
+        <button onClick={() => navigate("/VerPedidosRepartidor")}>Volver a Pedidos</button>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -50,61 +67,58 @@ const NotificacionPedidoRepartidor = () => {
       {/* Main */}
       <main className="main">
         <h2>Notificacion de Pedido</h2>
-
-        {/* Formulario de Pedido */}
         <form>
           <table className="notificacion-pedido">
             <tbody>
               <tr className="form-row">
                 <td className="form-title">Nombre:</td>
                 <td className="form-input">
-                  <input type="text" name="nombre" defaultValue="Juan" readOnly />
+                  <input type="text" name="nombre" value={pedido.nombre || ""} readOnly />
                 </td>
               </tr>
-              <tr className="form-row">
-                <td className="form-title">Apellidos:</td>
-                <td className="form-input">
-                  <input type="text" name="apellidos" defaultValue="Pérez" readOnly />
-                </td>
-              </tr>
+              {/* Puedes quitar Apellidos/Ciudad si no los necesitas */}
               <tr className="form-row">
                 <td className="form-title">Dirección:</td>
                 <td className="form-input">
-                  <input type="text" name="direccion" defaultValue="Calle 123 #45-67" readOnly />
-                </td>
-              </tr>
-              <tr className="form-row">
-                <td className="form-title">Ciudad:</td>
-                <td className="form-input">
-                  <input type="text" name="ciudad" defaultValue="Bogotá" readOnly />
+                  <input type="text" name="direccion" value={pedido.direccion || ""} readOnly />
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Descripción del Pedido:</td>
                 <td className="form-input">
-                  <textarea name="descripcion" rows="4" defaultValue="Pedido de 3 productos." readOnly></textarea>
+                  <textarea
+                    name="descripcion"
+                    rows="4"
+                    value={
+                      pedido.descripcion ||
+                      (pedido.productos
+                        ? pedido.productos.map(p => `${p.name} (x${p.quantity})`).join(', ')
+                        : "")
+                    }
+                    readOnly
+                  ></textarea>
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Teléfono:</td>
                 <td className="form-input">
-                  <input type="tel" name="telefono" defaultValue="3001234567" readOnly />
+                  <input type="tel" name="telefono" value={pedido.telefono || ""} readOnly />
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Medio de Pago:</td>
                 <td className="form-input">
-                  <span>Efectivo</span> {/* Mostrar el medio de pago como texto */}
+                  <span>{pedido.medio_pago || "Efectivo"}</span>
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Número de Repartidor Asignado:</td>
                 <td className="form-input">
-                  <input type="text" name="numero_repartidor" defaultValue="R001" readOnly />
+                  <input type="text" name="numero_repartidor" value={pedido.repartidorId || "R001"} readOnly />
                 </td>
               </tr>
               <tr className="form-row">
-                <td className="form-title">Confirmar Entrega:</td>
+                <td className="form-title">Confirmar Recoleccion:</td>
                 <td className="form-input">
                   <input
                     type="range"
@@ -112,10 +126,14 @@ const NotificacionPedidoRepartidor = () => {
                     max="100"
                     defaultValue="0"
                     className="slider-confirmacion"
-                    onChange={(e) => {
+                    onMouseUp={(e) => {
                       if (e.target.value === "100") {
-                        alert("Confirma Recogida, Redirigiendo al Geolocalizacion Recogida...");
-                        navigate("/GeolocalizacionRecogida"); // Redirigir al inicio repartidor
+                        navigate("/GeolocalizacionRecogida");
+                      }
+                    }}
+                    onTouchEnd={(e) => {
+                      if (e.target.value === "100") {
+                        navigate("/GeolocalizacionRecogida");
                       }
                     }}
                   />
@@ -125,9 +143,7 @@ const NotificacionPedidoRepartidor = () => {
             </tbody>
           </table>
         </form>
-
       </main>
-
       {/* Footer */}
       <footer className="footer">
         <p>© 2025 Sumer Delivery - Todos los derechos reservados</p>

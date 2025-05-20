@@ -10,6 +10,7 @@ const GeolocalizacionEntrega = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [userPosition, setUserPosition] = useState([4.711, -74.0721]); // Coordenadas de Bogotá, Colombia
   const [pin, setPin] = useState(""); // Estado para el PIN
+  const [calificacionComprador, setCalificacionComprador] = useState(""); // Nueva calificación
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,10 +35,23 @@ const GeolocalizacionEntrega = () => {
     }
   }, []);
 
-  const handleSliderChange = (e) => {
+  const handleSliderChange = async (e) => {
     if (pin.trim() !== "") {
       setSliderValue(e.target.value);
       if (e.target.value === "100") {
+        // Elimina el pedido del backend para que no aparezca más en VerPedidosRepartidor
+        const pedidoRepartidor = localStorage.getItem("pedidoRepartidor");
+        if (pedidoRepartidor) {
+          const pedido = JSON.parse(pedidoRepartidor);
+          try {
+            await fetch(`http://localhost:3001/api/pedidos/${pedido.id}`, {
+              method: "DELETE",
+            });
+          } catch {
+            // Si falla, igual borra del localStorage
+          }
+          localStorage.removeItem("pedidoRepartidor");
+        }
         alert("Entrega confirmada. Redirigiendo al inicio...");
         navigate("/InicioRepartidor");
       }
@@ -101,7 +115,6 @@ const GeolocalizacionEntrega = () => {
                   />{" "}
                   Chat con Comprador
                 </button>
-
                 <button
                   className="chat-button"
                   onClick={() => navigate("/ChatRestauranteRepartidor")}
@@ -113,7 +126,6 @@ const GeolocalizacionEntrega = () => {
                   />{" "}
                   Chat con Restaurante
                 </button>
-
                 <button
                   className="chat-button"
                   onClick={() => navigate("/ChatSoporteRepartidor")}
@@ -129,6 +141,18 @@ const GeolocalizacionEntrega = () => {
                   className="observaciones"
                   placeholder="Escribe tus observaciones sobre la entrega..."
                 ></textarea>
+                {/* Calificación para el comprador debajo de las observaciones */}
+                <div className="calificacion" style={{ marginTop: "16px" }}>
+                  <label>Califica Comprador (1 a 10):</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    className="calificacion-input"
+                    value={calificacionComprador}
+                    onChange={e => setCalificacionComprador(e.target.value)}
+                  />
+                </div>
               </td>
               <td className="map-container">
                 <MapContainer

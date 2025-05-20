@@ -1,73 +1,89 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
-import "../../estilos/Comprador/FacturaComprador.css"; // Los estilos
-import '../../Global.css'; // Los estilos
-import { jsPDF } from "jspdf"; // Importar jsPDF
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../estilos/Comprador/FacturaComprador.css";
+import '../../Global.css';
+import { jsPDF } from "jspdf";
 
 const FacturaComprador = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const navigate = useNavigate(); // Inicializar useNavigate
+  const [pedido, setPedido] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Recuperar datos del pedido desde localStorage
+    const productos = JSON.parse(localStorage.getItem("cart") || "[]");
+    const subtotal = localStorage.getItem("subtotal") || 0;
+    const nombre = localStorage.getItem("nombre") || "";
+    const apellidos = localStorage.getItem("apellidos") || "";
+    const direccion = localStorage.getItem("direccion") || "";
+    const ciudad = localStorage.getItem("ciudad") || "";
+    const descripcion = localStorage.getItem("descripcion") || "";
+    const telefono = localStorage.getItem("telefono") || "";
+    const medio_pago = localStorage.getItem("medio_pago") || "";
+
+    setPedido({
+      productos,
+      subtotal,
+      nombre,
+      apellidos,
+      direccion,
+      ciudad,
+      descripcion,
+      telefono,
+      medio_pago,
+      fecha: new Date().toISOString().slice(0, 10),
+      hora: new Date().toLocaleTimeString('en-GB', { hour12: false }),
+      estado: "En Proceso",
+      logoEstado: require("../../activos/logo-enproceso.png"),
+      numeroPedido: Math.floor(Math.random() * 100000), // Puedes mejorar esto con el ID real del backend
+      servicioDomicilio: 3000,
+      km: 2,
+      observaciones: "",
+      nombreFactura: `Factura_${new Date().toISOString().slice(0, 10)}`
+    });
+  }, []);
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
   };
 
   const handleGeolocalizacionComprador = () => {
-    console.log("Redirigiendo a /GeolocalizacionComprador"); // Ver si el mensaje aparece en la consola
     navigate("/GeolocalizacionComprador");
   };
 
-  // Datos de la factura (esto lo puedes ajustar según tu lógica)
-  const factura = {
-    numeroPedido: "12345",
-    fecha: "2025-01-29",
-    hora: "14:30",
-    estado: "En Proceso",
-    logoEstado: require("../../activos/logo-enproceso.png"),
-    detalle: "Pedido de 2 productos",
-    total: "$50,000",
-    servicioDomicilio: "$3,000",
-    km: "2",
-    observaciones: "Incluir paquete extra.",
-    nombreFactura: "Factura_2025-01-29",
-  };
-
-  // Función para descargar el PDF
   const handleDescargarFactura = () => {
-    console.log("Generando y descargando factura en PDF...");
-
-    // Crear una instancia de jsPDF
+    if (!pedido) return;
     const doc = new jsPDF();
-
-    // Agregar el título
     doc.setFontSize(18);
     doc.text("Factura de Pedido", 20, 20);
-
-    // Agregar los detalles de la factura
     doc.setFontSize(12);
-    doc.text(`Número de Pedido: ${factura.numeroPedido}`, 20, 30);
-    doc.text(`Fecha: ${factura.fecha}`, 20, 40);
-    doc.text(`Hora: ${factura.hora}`, 20, 50);
-    doc.text(`Estado: ${factura.estado}`, 20, 60);
-    doc.text(`Detalle: ${factura.detalle}`, 20, 70);
-    doc.text(`Total: ${factura.total}`, 20, 80);
-    doc.text(
-      `Valor de Servicio Domicilio: ${factura.servicioDomicilio}`,
-      20,
-      90
-    );
-    doc.text(`Kilómetros: ${factura.km}`, 20, 100);
-    doc.text(`Observaciones: ${factura.observaciones}`, 20, 110);
-
-    // Agregar el logo (logo de estado)
-    doc.addImage(factura.logoEstado, "PNG", 150, 20, 40, 40); // Ajusta el tamaño y posición según sea necesario
-
-    // Agregar el nombre de la factura con la fecha
-    doc.text(`Nombre de Factura: ${factura.nombreFactura}`, 20, 120);
-
-    // Descargar el PDF
-    doc.save(`${factura.nombreFactura}.pdf`);
+    doc.text(`Número de Pedido: ${pedido.numeroPedido}`, 20, 30);
+    doc.text(`Fecha: ${pedido.fecha}`, 20, 40);
+    doc.text(`Hora: ${pedido.hora}`, 20, 50);
+    doc.text(`Estado: ${pedido.estado}`, 20, 60);
+    doc.text(`Nombre: ${pedido.nombre} ${pedido.apellidos}`, 20, 70);
+    doc.text(`Dirección: ${pedido.direccion}, ${pedido.ciudad}`, 20, 80);
+    doc.text(`Teléfono: ${pedido.telefono}`, 20, 90);
+    doc.text(`Medio de Pago: ${pedido.medio_pago}`, 20, 100);
+    doc.text(`Detalle:`, 20, 110);
+    let y = 120;
+    pedido.productos.forEach((prod, idx) => {
+      doc.text(
+        `- ${prod.name} (x${prod.quantity}) $${prod.price * prod.quantity}`,
+        25,
+        y
+      );
+      y += 10;
+    });
+    doc.text(`Subtotal: $${pedido.subtotal}`, 20, y);
+    y += 10;
+    doc.text(`Servicio Domicilio: $${pedido.servicioDomicilio}`, 20, y);
+    y += 10;
+    doc.text(`Total: $${Number(pedido.subtotal) + Number(pedido.servicioDomicilio)}`, 20, y);
+    doc.save(`${pedido.nombreFactura}.pdf`);
   };
+
+  if (!pedido) return null;
 
   return (
     <div>
@@ -154,32 +170,46 @@ const FacturaComprador = () => {
               <th>Fecha</th>
               <th>Hora</th>
               <th>Estado</th>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Medio de Pago</th>
               <th>Detalle</th>
+              <th>Subtotal</th>
+              <th>Servicio Domicilio</th>
               <th>Total</th>
-              <th>Valor Servicio Domicilio</th>
-              <th>Observaciones</th>
               <th>Factura</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td data-label="Número de Pedido">{factura.numeroPedido}</td>
-              <td data-label="Fecha">{factura.fecha}</td>
-              <td data-label="Hora">{factura.hora}</td>
-              <td data-label="Estado">
+              <td>{pedido.numeroPedido}</td>
+              <td>{pedido.fecha}</td>
+              <td>{pedido.hora}</td>
+              <td>
                 <img
-                  src={factura.logoEstado}
+                  src={pedido.logoEstado}
                   alt="Estado"
                   className="logo-estado"
                 />
               </td>
-              <td data-label="Detalle">{factura.detalle}</td>
-              <td data-label="Total">{factura.total}</td>
-              <td data-label="Valor Servicio Domicilio">
-                {factura.servicioDomicilio} ({factura.km} km)
+              <td>{pedido.nombre} {pedido.apellidos}</td>
+              <td>{pedido.direccion}, {pedido.ciudad}</td>
+              <td>{pedido.telefono}</td>
+              <td>{pedido.medio_pago}</td>
+              <td>
+                <ul>
+                  {pedido.productos.map((prod, idx) => (
+                    <li key={idx}>
+                      {prod.name} (x{prod.quantity}) - ${prod.price * prod.quantity}
+                    </li>
+                  ))}
+                </ul>
               </td>
-              <td data-label="Observaciones">{factura.observaciones}</td>
-              <td data-label="Factura">{factura.nombreFactura}</td>
+              <td>${pedido.subtotal}</td>
+              <td>${pedido.servicioDomicilio}</td>
+              <td>${Number(pedido.subtotal) + Number(pedido.servicioDomicilio)}</td>
+              <td>{pedido.nombreFactura}</td>
             </tr>
           </tbody>
         </table>

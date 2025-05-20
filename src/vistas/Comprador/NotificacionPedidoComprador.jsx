@@ -25,16 +25,70 @@ const NotificacionPedidoComprador = () => {
     }
   };
 
-  const handleFacturaCompradorClick = (e) => {
-    // Evitar que el formulario se envíe si no se selecciona un medio de pago
+  const handleFacturaCompradorClick = async (e) => {
+    e.preventDefault();
     if (!medioPago) {
-      e.preventDefault();
       alert("Por favor, selecciona un medio de pago antes de confirmar el pedido.");
       return;
     }
 
-    // Redirigir a la factura si todo está correcto
-    navigate("/FacturaComprador");
+    // Recuperar productos y subtotal del carrito (ejemplo usando localStorage)
+    const productos = JSON.parse(localStorage.getItem("cart") || "[]");
+    const subtotal = localStorage.getItem("subtotal") || 0;
+
+    // Obtener datos del formulario
+    const form = e.target.form || e.target.closest("form");
+    const nombre = form.nombre.value;
+    const apellidos = form.apellidos.value;
+    const direccion = form.direccion.value;
+    const ciudad = form.ciudad.value;
+    const descripcion = form.descripcion.value;
+    const telefono = form.telefono.value;
+
+    // Guardar datos en localStorage para la factura
+    localStorage.setItem("nombre", nombre);
+    localStorage.setItem("apellidos", apellidos);
+    localStorage.setItem("direccion", direccion);
+    localStorage.setItem("ciudad", ciudad);
+    localStorage.setItem("descripcion", descripcion);
+    localStorage.setItem("telefono", telefono);
+    localStorage.setItem("medio_pago", medioPago);
+
+    // Enviar pedido al backend
+    try {
+      // Puedes agregar logs para depurar la respuesta del backend
+      const response = await fetch("http://localhost:3000/api/pedidos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productos,
+          subtotal,
+          nombre,
+          apellidos,
+          direccion,
+          ciudad,
+          descripcion,
+          telefono,
+          medio_pago: medioPago,
+        }),
+      });
+      const text = await response.text();
+      let data = {};
+      try {
+        data = JSON.parse(text);
+      } catch (e) {}
+      console.error("Status HTTP:", response.status);
+      console.error("Texto de respuesta:", text);
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || text || "Error al enviar el pedido");
+      }
+      navigate("/FacturaComprador");
+    } catch (error) {
+      alert("No se pudo enviar el pedido: " + error.message);
+    }
   };
 
   return (

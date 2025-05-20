@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../estilos/Comprador/GeolocalizacionComprador.css";
-import '../../Global.css'; // Los estilos
+import "../../Global.css"; // Los estilos
 
-// Importación de react-leaflet y estilos de Leaflet osea el mapa dentro de este usuario comprador 
+// Importación de react-leaflet y estilos de Leaflet osea el mapa dentro de este usuario comprador
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -20,15 +20,18 @@ const GeolocalizacionComprador = () => {
       const geoWatcher = navigator.geolocation.watchPosition(
         (position) => {
           // Actualizar la posición del usuario en tiempo real
-          setUserPosition([position.coords.latitude, position.coords.longitude]);
+          setUserPosition([
+            position.coords.latitude,
+            position.coords.longitude,
+          ]);
         },
         (error) => {
           console.error("Error al obtener la geolocalización.", error);
         },
         {
-          enableHighAccuracy: true, 
-          timeout: 5000,            
-          maximumAge: 0             
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
         }
       );
 
@@ -41,9 +44,13 @@ const GeolocalizacionComprador = () => {
 
   const handleSliderChange = (e) => {
     setSliderValue(e.target.value);
+    if (e.target.value === "100") {
+      navigate("/InicioComprador");
+    }
   };
 
   const handleSwitchToggle = () => {
+    
     setIsConnected(!isConnected);
   };
 
@@ -65,10 +72,10 @@ const GeolocalizacionComprador = () => {
     }
 
     window.location.href = `tel:${phoneNumber}`;
-  };  
-   
-   // Logica para redireccion de los botones de chat con repartidor , restaurante y soporte
-   
+  };
+
+  // Logica para redireccion de los botones de chat con repartidor , restaurante y soporte
+
   const handleChatRedirect = (type) => {
     switch (type) {
       case "Repartidor":
@@ -85,8 +92,6 @@ const GeolocalizacionComprador = () => {
     }
   };
 
- 
-
   return (
     <div>
       <header className="home-header">
@@ -101,7 +106,10 @@ const GeolocalizacionComprador = () => {
           <h1>Sumer Delivery Usuario Comprador</h1>
         </div>
         <div className="header-buttons">
-          <button className="button-inicio" onClick={() => navigate("/InicioComprador")}>
+          <button
+            className="button-inicio"
+            onClick={() => navigate("/InicioComprador")}
+          >
             <img
               src={require("../../activos/boton-inicio.png")}
               alt="Inicio"
@@ -144,19 +152,20 @@ const GeolocalizacionComprador = () => {
       </header>
 
       <main className="main geolocalizacion-main">
+        <h2>Geolocalización</h2>
         <table className="geolocalizacion-table">
           <tbody>
             <tr>
               <td className="left-panel">
                 <button
                   className="chat-button"
-                  onClick={() => navigate("/ChatRepartidor")}
+                  onClick={() => handleChatRedirect("Repartidor")}
                 >
                   <img
                     src={require("../../activos/icono-llamada.png")}
                     alt="Llamar"
                     className="icono-llamada"
-                  />{" "}
+                  />
                   Chat con Repartidor
                 </button>
 
@@ -222,7 +231,10 @@ const GeolocalizacionComprador = () => {
               </td>
               <td className="right-panel">
                 <div className="pin-container">
-                  <span className="pin-number" style={{ backgroundColor: "red" }}>
+                  <span
+                    className="pin-number"
+                    style={{ backgroundColor: "red" }}
+                  >
                     1235
                   </span>
                   <span>PIN de Entrega</span>
@@ -327,4 +339,3 @@ const GeolocalizacionComprador = () => {
 };
 
 export default GeolocalizacionComprador;
-

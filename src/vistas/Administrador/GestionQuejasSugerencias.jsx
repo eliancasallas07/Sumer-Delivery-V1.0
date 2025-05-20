@@ -13,6 +13,8 @@ const GestionQuejasSugerencias = () => {
   const [datosChat, setDatosChat] = useState([]);
   const [loading, setLoading] = useState(false);
 
+ 
+
   const navigate = useNavigate(); // Hook de navegación
 
   const handleSwitchToggle = () => {

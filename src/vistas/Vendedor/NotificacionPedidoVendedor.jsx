@@ -1,26 +1,65 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Vendedor/NotificacionPedidoVendedor.css'; // Los estilos
-import '../../Global.css'; // Los estilos
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../../estilos/Vendedor/NotificacionPedidoVendedor.css';
+import '../../Global.css';
 
 const NotificacionPedidoVendedor = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const navigate = useNavigate();  // Inicializar useNavigate
+  const [pedido, setPedido] = useState(null);
+  const [pinVisible, setPinVisible] = useState(false);
+  const navigate = useNavigate();
 
-  const [medioPago] = useState("Efectivo"); // Medio de pago predefinido
-  const [pinVisible, setPinVisible] = useState(false); // Estado para mostrar/ocultar el PIN
+  useEffect(() => {
+    // Recupera el pedido confirmado de localStorage
+    const pedidoConfirmado = localStorage.getItem("pedidoConfirmado");
+    if (pedidoConfirmado) {
+      const pedidoObj = JSON.parse(pedidoConfirmado);
+      // Intenta obtener apellidos y ciudad de los productos si no existen en el pedido principal
+      if (!pedidoObj.apellidos) {
+        pedidoObj.apellidos =
+          (pedidoObj.productos && pedidoObj.productos[0] && pedidoObj.productos[0].apellidos) || "";
+      }
+      if (!pedidoObj.ciudad) {
+        pedidoObj.ciudad =
+          (pedidoObj.productos && pedidoObj.productos[0] && pedidoObj.productos[0].ciudad) || "";
+      }
+      setPedido(pedidoObj);
+    }
+  }, []);
 
-    const handleSwitchToggle = () => {
-      setIsConnected(!isConnected);
-    };
-  
-    const handleFacturaCompradorClick = (e) => {
-      e.preventDefault();
-      alert("Pedido confirmado. Redirigiendo a la factura...");
-      navigate("/FacturaComprador");
-    };
+  const handleSwitchToggle = () => {
+    setIsConnected(!isConnected);
+  };
 
+  // Confirmar entrega: elimina el pedido del backend y de localStorage
+  const handleConfirmarEntrega = async () => {
+    if (!pedido) return;
+    try {
+      // Elimina el pedido del backend
+      const res = await fetch(`http://localhost:3001/api/pedidos/${pedido.id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        localStorage.removeItem("pedidoConfirmado");
+        alert("Entrega confirmada. Redirigiendo a gestión de pedidos...");
+        navigate("/GestionPedidosVendedor");
+      } else {
+        const errorText = await res.text();
+        alert("Error al eliminar el pedido: " + errorText);
+      }
+    } catch {
+      alert("Error al eliminar el pedido del backend");
+    }
+  };
+
+  if (!pedido) {
+    return (
+      <div>
+        <h2>No hay pedido confirmado para mostrar.</h2>
+        <button onClick={() => navigate("/GestionPedidosVendedor")}>Volver a Gestión de Pedidos</button>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -60,57 +99,50 @@ const NotificacionPedidoVendedor = () => {
       {/* Main */}
       <main className="main">
         <h2>Notificación de Pedido</h2>
-
-        {/* Formulario de Pedido */}
         <form>
           <table className="notificacion-pedido">
             <tbody>
               <tr className="form-row">
                 <td className="form-title">Nombre:</td>
                 <td className="form-input">
-                  <input type="text" name="nombre" defaultValue="Juan" readOnly />
+                  <input type="text" name="nombre" value={pedido.nombre || ""} readOnly />
                 </td>
               </tr>
-              <tr className="form-row">
-                <td className="form-title">Apellidos:</td>
-                <td className="form-input">
-                  <input type="text" name="apellidos" defaultValue="Pérez" readOnly />
-                </td>
-              </tr>
+              {/* Quitar Apellidos */}
+              {/* Quitar Ciudad */}
               <tr className="form-row">
                 <td className="form-title">Dirección:</td>
                 <td className="form-input">
-                  <input type="text" name="direccion" defaultValue="Calle 123 #45-67" readOnly />
-                </td>
-              </tr>
-              <tr className="form-row">
-                <td className="form-title">Ciudad:</td>
-                <td className="form-input">
-                  <input type="text" name="ciudad" defaultValue="Bogotá" readOnly />
+                  <input type="text" name="direccion" value={pedido.direccion || ""} readOnly />
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Descripción del Pedido:</td>
                 <td className="form-input">
-                  <textarea name="descripcion" rows="4" defaultValue="Pedido de 3 productos." readOnly></textarea>
+                  <textarea name="descripcion" rows="4" value={
+                    pedido.descripcion ||
+                    (pedido.productos
+                      ? pedido.productos.map(p => `${p.name} (x${p.quantity})`).join(', ')
+                      : "")
+                  } readOnly></textarea>
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Teléfono:</td>
                 <td className="form-input">
-                  <input type="tel" name="telefono" defaultValue="3001234567" readOnly />
+                  <input type="tel" name="telefono" value={pedido.telefono || ""} readOnly />
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Medio de Pago:</td>
                 <td className="form-input">
-                  <span>{medioPago}</span> {/* Mostrar el medio de pago como texto */}
+                  <span>{pedido.medio_pago || "Efectivo"}</span>
                 </td>
               </tr>
               <tr className="form-row">
                 <td className="form-title">Número de Repartidor Asignado:</td>
                 <td className="form-input">
-                  <input type="text" name="numero_repartidor" defaultValue="R001" readOnly />
+                  <input type="text" name="numero_repartidor" value={pedido.repartidorId || "R001"} readOnly />
                 </td>
               </tr>
               <tr className="form-row">
@@ -120,7 +152,7 @@ const NotificacionPedidoVendedor = () => {
                     <input
                       type={pinVisible ? "text" : "password"}
                       name="pin_entrega"
-                      defaultValue="1234"
+                      value={pedido.pin_entrega || "1234"}
                       readOnly
                       style={{ color: "red", fontWeight: "bold" }}
                     />
@@ -129,7 +161,7 @@ const NotificacionPedidoVendedor = () => {
                       className="toggle-pin-btn"
                       onClick={() => setPinVisible(!pinVisible)}
                     >
-                      {pinVisible ? "👁️" : "🙈"} {/* Icono de ojo */}
+                      {pinVisible ? "👁️" : "🙈"}
                     </button>
                   </div>
                 </td>
@@ -143,10 +175,14 @@ const NotificacionPedidoVendedor = () => {
                     max="100"
                     defaultValue="0"
                     className="slider-confirmacion"
-                    onChange={(e) => {
+                    onMouseUp={async (e) => {
                       if (e.target.value === "100") {
-                        alert("Entrega confirmada. Redirigiendo al inicio...");
-                        navigate("/InicioVendedor"); // Redirigir al inicio vendedor
+                        await handleConfirmarEntrega();
+                      }
+                    }}
+                    onTouchEnd={async (e) => {
+                      if (e.target.value === "100") {
+                        await handleConfirmarEntrega();
                       }
                     }}
                   />
@@ -156,8 +192,6 @@ const NotificacionPedidoVendedor = () => {
             </tbody>
           </table>
         </form>
-
-    
       </main>
       {/* Footer */}
       <footer className="footer">

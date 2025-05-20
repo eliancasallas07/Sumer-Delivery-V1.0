@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import '../../estilos/Repartidor/NotificacionesRepartidor.css'; // Los estilos
-import '../../Global.css'; // Los estilos
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../../estilos/Repartidor/NotificacionesRepartidor.css';
+import '../../Global.css';
 
 const NotificacionesRepartidor = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const [volumen, setVolumen] = useState(50); // Estado para el volumen
-  const [notificacionesActivas, setNotificacionesActivas] = useState(true); // Estado para activar/desactivar notificaciones
-  const [horario, setHorario] = useState("Todo el día"); // Estado para el horario
+  const [volumen, setVolumen] = useState(50);
+  const [notificacionesActivas, setNotificacionesActivas] = useState(true);
+  const [horario, setHorario] = useState("Todo el día");
+  const [pedido, setPedido] = useState(null);
 
-  const navigate = useNavigate();  // Inicializar useNavigate
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Recupera el pedido seleccionado para el repartidor desde localStorage
+    const pedidoRepartidor = localStorage.getItem("pedidoRepartidor");
+    if (pedidoRepartidor) {
+      setPedido(JSON.parse(pedidoRepartidor));
+    }
+  }, []);
 
   const handleSwitchToggle = () => {
     setIsConnected(!isConnected);
@@ -109,6 +118,31 @@ const NotificacionesRepartidor = () => {
                   </select>
                 </td>
               </tr>
+              {pedido && (
+                <tr>
+                  <td colSpan={4}>
+                    <div className="pedido-detalle-repartidor">
+                      <strong>Pedido asignado:</strong>
+                      <div>Número de Pedido: {pedido.id}</div>
+                      <div>Fecha: {pedido.fecha}</div>
+                      <div>Hora: {pedido.hora}</div>
+                      <div>Estado: {pedido.estado}</div>
+                      <div>Dirección: {pedido.direccion}</div>
+                      <div>Teléfono: {pedido.telefono}</div>
+                      <div>Medio de Pago: {pedido.medio_pago}</div>
+                      <div>Total: ${pedido.total}</div>
+                      <div>
+                        Productos:
+                        <ul>
+                          {pedido.productos && pedido.productos.map((prod, idx) => (
+                            <li key={idx}>{prod.name} (x{prod.quantity})</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

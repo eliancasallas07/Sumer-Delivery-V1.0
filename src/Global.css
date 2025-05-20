@@ -47,7 +47,7 @@ p,
   align-items: center; 
   width: 100%;
   box-sizing: border-box;
-  height: 45rem; 
+  height: 44rem; 
   gap: 2rem; 
 }
 /* Logo Sumer Delivery */
@@ -322,6 +322,48 @@ table input {
     margin: 1rem 0; /* Espaciado superior e inferior */
   }
 
+  .connection-status {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.7rem;
+    position: static;
+    padding-bottom: 1.2rem;
+    /* Nuevo: separa del borde inferior del header */
+    box-sizing: border-box;
+    /* Añade espacio inferior interno al header si es el último elemento */
+  }
+
+  .home-header {
+    /* ...existing code... */
+    padding-bottom: 1.7rem !important; /* Menos espacio en la parte baja del header en móvil */
+    height: 46rem !important; /* Un poco menos alto en móvil */
+  }
+
+  .switch-container {
+    padding: 0;
+    margin-right: 0.7rem;
+  }
+
+  .status-text {
+    font-size: 1rem;
+    white-space: nowrap;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    height: 2.2rem;
+  }
+
+  .header-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }
 
 /* Diseño específico para tabletas (pantallas medianas, entre 768px y 1024px) */
