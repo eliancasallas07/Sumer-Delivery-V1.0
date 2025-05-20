@@ -1,0 +1,324 @@
+/* Estilo para el contenedor del carrusel */
+.carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Contenedor de categoría */
+.carousel-category {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+/* Imagen de la categoría */
+.category-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.category-main:hover {
+  transform: scale(1.05);
+}
+
+.category-image {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-main h2 {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+/* Botones de navegación */
+.carousel-button {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.carousel-button:hover {
+  color: #4caf50;
+}
+
+/* Contenedor de subcategorías */
+.subcategory-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Estilo para las imágenes de las subcategorías */
+.subcategory-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subcategory-item:hover .subcategory-image {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Animación para la imagen cuando se carga */
+.subcategory-image {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Estilo adicional para el nombre de la subcategoría */
+.subcategory-item h3 {
+  font-size: 1rem;
+  color: #333;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Contenedor de tienda con tabla */
+.store-container {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.store-table-container {
+  margin-top: 1rem;
+  overflow-x: auto; /* Permite el scroll horizontal si la tabla es muy ancha */
+}
+
+/* Estilo para la tabla de productos */
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.products-table th,
+.products-table td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.products-table th {
+  background-color: #f0f0f0;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Estilos para las imágenes de los productos */
+.store-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* Estilos de los botones de acción */
+.products-table td button {
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.products-table td button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo para el carrito */
+.cart-icon-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #000;  /* Color negro para el ícono */
+  transition: color 0.3s ease;
+}
+
+.cart-button:hover {
+  color: #4caf50;  /* Cambia a verde cuando se pasa el mouse */
+}
+
+.subtotal {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Sección del carrito y productos añadidos */
+.cart-details {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-items ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-items li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-items li:last-child {
+  border-bottom: none;
+}
+
+.cart-items h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.cart-items button {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.cart-items button:hover {
+  background-color: #45a049;
+}
+
+.cart-items .subtotal {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+
+/* Responsivo - Pantallas más pequeñas */
+@media (max-width: 768px) {
+  /* Ajustes para las tablas y sus contenidos */
+  .products-table th,
+  .products-table td {
+    font-size: 0.9rem;
+  }
+
+  .store-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .products-table td button {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .cart-icon-container {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .cart-details {
+    padding: 1rem;
+  }
+
+  .cart-items button {
+    padding: 0.75rem 1.2rem;
+  }
+
+  /* Ajustes para las subcategorías */
+  .subcategory-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .subcategory-item h3 {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes adicionales para pantallas más pequeñas */
+  .products-table th,
+  .products-table td {
+    font-size: 0.8rem;
+  }
+
+  .store-logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .products-table td button {
+    padding: 0.4rem 0.7rem;
+  }
+
+  .cart-icon-container {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .cart-details {
+    padding: 0.75rem;
+  }
+
+  .cart-items button {
+    padding: 0.6rem 1rem;
+  }
+
+  /* Ajustes para las subcategorías */
+  .subcategory-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .subcategory-item h3 {
+    font-size: 0.8rem;
+  }
+}

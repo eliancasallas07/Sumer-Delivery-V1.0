@@ -1,0 +1,39 @@
+.ver-pedidos .estado-icono {
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .ver-pedidos .estado {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinear contenido a la izquierda */
+    gap: 0.5rem; /* Espaciado entre el texto y el ícono */
+  }
+
+  .ver-pedidos .estado-texto {
+    flex-shrink: 0; /* Evitar que el texto se reduzca */
+    font-size: 1rem; /* Ajustar tamaño de fuente */
+    color: #333; /* Color del texto */
+    text-align: left; /* Asegurar alineación a la izquierda */
+  }
+
+  .ver-pedidos .estado-icono {
+    flex-shrink: 0; /* Evitar que el ícono se reduzca */
+    width: 1.5rem; /* Ajustar tamaño del ícono */
+    height: 1.5rem;
+  }
+
+  .ver-pedidos td {
+    text-align: left; /* Asegurar alineación a la izquierda */
+    padding: 0.75rem 1rem; /* Agregar espacio interno */
+    word-wrap: break-word; /* Ajustar texto largo */
+    overflow-wrap: break-word; /* Ajustar texto largo */
+  }
+
+  .ver-pedidos td:last-child {
+    border-bottom: none; /* Eliminar borde inferior de la última celda */
+  }
+}
+

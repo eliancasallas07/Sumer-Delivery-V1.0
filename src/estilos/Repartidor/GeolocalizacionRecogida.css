@@ -1,0 +1,9 @@
+/* Contenedor principal del mapa */
+.map-container {
+  height: 400px;
+  width: 40%;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+

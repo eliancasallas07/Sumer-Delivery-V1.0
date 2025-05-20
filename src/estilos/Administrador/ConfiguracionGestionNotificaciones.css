@@ -1,0 +1,33 @@
+/* Pagina de Configuracion y Gestion de Notificaciones */
+
+/* Main */
+
+/* Estilo global para los botones */
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #4caf50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #45a049; /* Color más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+.button:active {
+  background-color: #3e8e41; /* Color más oscuro al hacer clic */
+  transform: scale(0.95); /* Efecto de reducción */
+}
+
+
+
+

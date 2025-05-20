@@ -1,0 +1,55 @@
+.estado-icono {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .detalles-pedidos table,
+  .detalles-pedidos thead,
+  .detalles-pedidos tbody,
+  .detalles-pedidos th,
+  .detalles-pedidos td,
+  .detalles-pedidos tr {
+    display: block; /* Hacer que la tabla sea un bloque */
+  }
+
+  .detalles-pedidos thead {
+    display: none; /* Ocultar encabezados de la tabla */
+  }
+
+  .detalles-pedidos tr {
+    margin-bottom: 1rem; /* Espaciado entre filas */
+    border: 1px solid #ddd; /* Agregar borde a cada fila */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 1rem; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco */
+  }
+
+  .detalles-pedidos td {
+    display: flex; /* Hacer que cada celda sea un bloque flexible */
+    justify-content: space-between; /* Espaciado entre el título y el contenido */
+    align-items: center; /* Alinear verticalmente */
+    padding: 0.5rem 0; /* Espaciado interno */
+    border: none; /* Eliminar bordes entre celdas */
+    text-align: left; /* Alinear texto a la izquierda */
+  }
+
+  .detalles-pedidos td::before {
+    content: attr(data-label); /* Usar el atributo data-label como título */
+    font-weight: bold; /* Negrita para el título */
+    color: #333; /* Color del título */
+    flex-shrink: 0; /* Evitar que el título se reduzca */
+    margin-right: 1rem; /* Espaciado entre el título y el contenido */
+  }
+
+  .detalles-pedidos td:last-child {
+    border-bottom: none; /* Eliminar borde inferior de la última celda */
+  }
+}
+
+
+
+
+
+

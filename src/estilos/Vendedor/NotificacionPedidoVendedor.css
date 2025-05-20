@@ -1,0 +1,86 @@
+.toggle-pin-btn{
+    background-color: rgb(226, 195, 151);
+}
+
+.toggle-pin-btn:hover{
+    background-color: rgb(202, 184, 159);
+}
+
+
+tbody tr:nth-child(2n) {
+  background-color: #f9f9f9;
+  width: 90%;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden; /* Evitar scroll horizontal */
+  }
+
+  .notificacion-pedido {
+    width: 100%; /* Asegurar que la tabla ocupe todo el ancho */
+    border-collapse: collapse;
+  }
+
+  .notificacion-pedido tbody tr {
+    display: flex;
+    flex-direction: column; /* Alinear filas verticalmente */
+    margin-bottom: 1rem; /* Espaciado entre filas */
+    padding: 1rem; /* Espaciado interno */
+    border: 1px solid #ddd; /* Bordes para cada fila */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco */
+    width: 90%;
+  }
+
+  .form-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Espaciado inferior */
+    text-align: left; /* Alinear texto a la izquierda */
+  }
+
+  .form-input {
+    width: 100%; /* Asegurar que los inputs ocupen todo el ancho */
+  }
+
+  .form-input input,
+  .form-input textarea,
+  .form-input select {
+    width: 100%; /* Asegurar que los campos ocupen todo el ancho */
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluir padding en el ancho total */
+  }
+
+  .pin-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaciado entre el input y el botón */
+  }
+
+  .slider-confirmacion {
+    width: 100%; /* Asegurar que el deslizador ocupe todo el ancho */
+    margin: 1rem 0; /* Espaciado superior e inferior */
+  }
+
+  .slider-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .toggle-pin-btn {
+    font-size: 1.2rem;
+    padding: 0.3rem;
+    border: none;
+    background-color: rgb(226, 195, 151);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .toggle-pin-btn:hover {
+    background-color: rgb(202, 184, 159);
+  }
+}
+
