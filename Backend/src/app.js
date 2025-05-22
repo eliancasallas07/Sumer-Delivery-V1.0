@@ -16,13 +16,10 @@ const saltRounds = 10;  // Número de rondas de sal, un valor de 10 es común
 
 // Configurar CORS
 const allowedOrigins = [
-    'http://localhost:3000', // Frontend
-    'http://localhost:3001', // Backend (por si accedes desde navegador)
+    'http://localhost:3000', // Frontend local
+    'http://localhost:3001', // Backend local (por si accedes desde navegador)
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:3001',
-    'https://sumer-delivery-f86af.web.app',
-    'https://sumer-delivery-f86af.firebaseapp.com',
-    'https://mi-backend-production.up.railway.app' // <-- Cambia por tu URL real de Railway
+    'http://127.0.0.1:3001' // <-- Cambia por tu URL real de Railway
 ];
 const corsOptions = {
     origin: function (origin, callback) {
