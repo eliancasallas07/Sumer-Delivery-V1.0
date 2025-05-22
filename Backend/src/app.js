@@ -16,14 +16,14 @@ const saltRounds = 10;  // Número de rondas de sal, un valor de 10 es común
 
 // Configurar CORS
 const allowedOrigins = [
-    'http://localhost:3000', // Frontend local
-    'http://localhost:3001', // Backend local (por si accedes desde navegador)
+    'http://localhost:3000', 
+    'http://localhost:3001', 
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:3001' // <-- Cambia por tu URL real de Railway
+    'http://127.0.0.1:3001' 
 ];
 const corsOptions = {
     origin: function (origin, callback) {
-        // Permitir peticiones sin origin (como Postman o curl)
+        console.log("Origin recibido:", origin);
         if (!origin) return callback(null, true);
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);
@@ -379,15 +379,18 @@ app.post('/api/pedidos', (req, res) => {
             return res.status(400).json({ error: "No hay productos en el pedido" });
         }
 
+        // Cambiado: ahora incluye tienda y direccion_tienda
         const values = productos.map(prod => [
             pedidoId,
             prod.name,
             prod.quantity,
-            prod.price
+            prod.price,
+            prod.tienda,
+            prod.direccion // este campo es la dirección de la tienda
         ]);
 
         const sqlProductos = `
-            INSERT INTO pedido_producto (pedido_id, nombre_producto, cantidad, precio_unitario)
+            INSERT INTO pedido_producto (pedido_id, nombre_producto, cantidad, precio_unitario, tienda, direccion_tienda)
             VALUES ?
         `;
         db.query(sqlProductos, [values], (err2) => {
@@ -404,7 +407,7 @@ app.post('/api/pedidos', (req, res) => {
 app.get('/api/pedidos', (req, res) => {
     const sql = `
         SELECT p.id, p.fecha, p.hora, p.estado, p.subtotal, p.nombre, p.direccion, p.telefono, p.medio_pago, p.servicio_domicilio, p.total,
-               pp.nombre_producto, pp.cantidad, pp.precio_unitario
+               pp.nombre_producto, pp.cantidad, pp.precio_unitario, pp.tienda, pp.direccion_tienda
         FROM pedido p
         LEFT JOIN pedido_producto pp ON p.id = pp.pedido_id
         ORDER BY p.id DESC
@@ -437,7 +440,9 @@ app.get('/api/pedidos', (req, res) => {
                 pedidosMap[row.id].productos.push({
                     name: row.nombre_producto,
                     quantity: row.cantidad,
-                    price: row.precio_unitario
+                    price: row.precio_unitario,
+                    tienda: row.tienda,
+                    direccion_tienda: row.direccion_tienda
                 });
             }
         });
